@@ -1,6 +1,6 @@
 package com.approject.stickhero;
 
-public class Platform {
+public class Platform{
     private int startPosition;
     private final int width;
     Platform(int startPosition, int width){
