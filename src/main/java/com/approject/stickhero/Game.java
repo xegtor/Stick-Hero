@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class Game extends Application {
-    private Vector <Platform> platforms = new Vector();
     private Player player = new Player();
+    private Vector <Platform> platforms = new Vector();
     private Vector <Cherry> cherries = new Vector();
 
     @Override
