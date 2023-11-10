@@ -1,9 +1,9 @@
 package com.approject.stickhero;
 
-public class Platform{
+public class MyPlatform{
     private int startPosition;
-    private final int width;
-    Platform(int startPosition, int width){
+    private int width;
+    MyPlatform(int startPosition, int width){
         this.startPosition = startPosition;
         this.width = width;
     }

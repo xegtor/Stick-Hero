@@ -11,7 +11,7 @@ import java.util.Vector;
 
 public class Game extends Application {
     private Player player = new Player();
-    private Vector <Platform> platforms = new Vector();
+    private Vector <MyPlatform> platforms = new Vector();
     private Vector <Cherry> cherries = new Vector();
 
     @Override
