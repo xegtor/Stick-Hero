@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/Xegtor/IdeaProjects/Stick-Hero/src/main/java/com/approject/stickhero</OriginalElement>
+  <nodes>
+    <node x="519.5" y="-38.0">com.approject.stickhero.Stick</node>
+    <node x="316.0" y="-50.5">com.approject.stickhero.Cherry</node>
+    <node x="9.212499999999977" y="135.5">com.approject.stickhero.Game</node>
+    <node x="4.712499999999977" y="-166.5">com.approject.stickhero.MyPlatform</node>
+    <node x="-320.0" y="-125.5">com.approject.stickhero.Player</node>
+    <node x="420.5" y="170.0">com.approject.stickhero.Controller</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Cherry" relationship="TO_MANY">
+      <point x="82.0" y="0.0" />
+      <point x="376.0" y="186.0" />
+      <point x="0.0" y="51.0" />
+    </edge>
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Player" relationship="CREATE">
+      <point x="-82.0" y="0.0" />
+      <point x="-216.5" y="186.0" />
+      <point x="0.0" y="85.0" />
+    </edge>
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.MyPlatform" relationship="TO_MANY">
+      <point x="15.0" y="-50.5" />
+      <point x="15.0" y="74.0" />
+    </edge>
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Player" relationship="TO_ONE">
+      <point x="0.0" y="-50.5" />
+      <point x="91.21249999999998" y="-1.0" />
+      <point x="103.5" y="39.5" />
+    </edge>
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Game" relationship="DEPENDENCY">
+      <point x="0.0" y="50.5" />
+      <point x="91.21249999999998" y="265.5" />
+      <point x="195.21249999999998" y="265.5" />
+      <point x="195.21249999999998" y="201.0" />
+      <point x="82.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="true" x="282.0" y="230.5" />
+  <SelectedNodes>
+    <node>com.approject.stickhero.Stick</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
