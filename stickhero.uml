@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>D:/College_Stuff/Assignments/AP/Stick-Hero/src/main/java/com/approject/stickhero</OriginalElement>
+  <nodes>
+    <node x="-103.0" y="-74.41979010494751">com.approject.stickhero.Player</node>
+    <node x="-20.212500000000034" y="340.0">com.approject.stickhero.Game</node>
+    <node x="124.0" y="58.0">com.approject.stickhero.MyPlatform</node>
+    <node x="-272.640179910045" y="253.29010494752623">com.approject.stickhero.Stick</node>
+    <node x="350.0" y="241.29010494752623">com.approject.stickhero.MainApp</node>
+    <node x="-294.7361319340329" y="457.85607196401793">com.approject.stickhero.HelloViewController</node>
+    <node x="-330.7361319340329" y="340.0">com.approject.stickhero.SplashController</node>
+    <node x="350.0" y="356.5937031484258">com.approject.stickhero.Cherry</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Cherry" relationship="TO_MANY">
+      <point x="121.5" y="-19.40629685157421" />
+      <point x="-75.0" y="0.0" />
+    </edge>
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Player" relationship="CREATE">
+      <point x="-4.787499999999966" y="-80.0" />
+      <point x="96.0" y="152.0" />
+    </edge>
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.MyPlatform" relationship="TO_MANY">
+      <point x="114.0" y="-80.0" />
+      <point x="-11.712500000000034" y="80.0" />
+    </edge>
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Player" relationship="TO_ONE">
+      <point x="-100.78749999999997" y="-80.0" />
+      <point x="0.0" y="152.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="true" x="189.5" y="263.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
