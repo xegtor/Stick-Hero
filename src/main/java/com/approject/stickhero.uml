@@ -1,48 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement>C:/Users/Xegtor/IdeaProjects/Stick-Hero/src/main/java/com/approject/stickhero</OriginalElement>
+  <OriginalElement />
   <nodes>
-    <node x="519.5" y="-38.0">com.approject.stickhero.Stick</node>
-    <node x="316.0" y="-50.5">com.approject.stickhero.Cherry</node>
-    <node x="9.212499999999977" y="135.5">com.approject.stickhero.Game</node>
-    <node x="4.712499999999977" y="-166.5">com.approject.stickhero.MyPlatform</node>
-    <node x="-320.0" y="-125.5">com.approject.stickhero.Player</node>
-    <node x="420.5" y="170.0">com.approject.stickhero.Controller</node>
+    <node x="-161.0" y="201.5">com.approject.stickhero.Stick</node>
+    <node x="-83.0" y="-118.5">com.approject.stickhero.MyPlatform</node>
+    <node x="95.0" y="-106.5">com.approject.stickhero.Cherry</node>
+    <node x="-290.75" y="52.0">com.approject.stickhero.Game</node>
+    <node x="-320.0" y="184.0">com.approject.stickhero.Controller</node>
+    <node x="-320.0" y="-167.0">com.approject.stickhero.Player</node>
   </nodes>
   <notes />
   <edges>
     <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Cherry" relationship="TO_MANY">
-      <point x="82.0" y="0.0" />
-      <point x="376.0" y="186.0" />
-      <point x="0.0" y="51.0" />
+      <point x="-42.0" y="-56.0" />
+      <point x="-248.75" y="32.0" />
+      <point x="154.5" y="32.0" />
+      <point x="0.0" y="31.5" />
     </edge>
     <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Player" relationship="CREATE">
-      <point x="-82.0" y="0.0" />
-      <point x="-216.5" y="186.0" />
-      <point x="0.0" y="85.0" />
+      <point x="42.0" y="-56.0" />
+      <point x="51.75" y="92.0" />
     </edge>
     <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.MyPlatform" relationship="TO_MANY">
-      <point x="15.0" y="-50.5" />
-      <point x="15.0" y="74.0" />
+      <point x="-42.0" y="-56.0" />
+      <point x="-248.75" y="32.0" />
+      <point x="-9.0" y="32.0" />
+      <point x="0.0" y="43.5" />
     </edge>
     <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Player" relationship="TO_ONE">
-      <point x="0.0" y="-50.5" />
-      <point x="91.21249999999998" y="-1.0" />
-      <point x="103.5" y="39.5" />
-    </edge>
-    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Game" relationship="DEPENDENCY">
-      <point x="0.0" y="50.5" />
-      <point x="91.21249999999998" y="265.5" />
-      <point x="195.21249999999998" y="265.5" />
-      <point x="195.21249999999998" y="201.0" />
-      <point x="82.0" y="15.0" />
+      <point x="-42.0" y="-56.0" />
+      <point x="-248.75" y="32.0" />
+      <point x="-268.25" y="32.0" />
+      <point x="-51.75" y="92.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="1.0" showDependencies="true" x="282.0" y="230.5" />
-  <SelectedNodes>
-    <node>com.approject.stickhero.Stick</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic" zoom="1.5" showDependencies="true" x="-42.99999999999994" y="50.0" />
+  <SelectedNodes />
   <Categories>
     <Category>Constructors</Category>
     <Category>Fields</Category>
@@ -51,6 +45,6 @@
     <Category>Properties</Category>
   </Categories>
   <SCOPE>All</SCOPE>
-  <VISIBILITY>private</VISIBILITY>
+  <VISIBILITY>public</VISIBILITY>
 </Diagram>
 
