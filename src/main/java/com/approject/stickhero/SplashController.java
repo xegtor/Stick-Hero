@@ -2,6 +2,7 @@ package com.approject.stickhero;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -19,7 +20,7 @@ public class SplashController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
         Parent helloViewRoot = loader.load();
 
-        Stage stage = new Stage();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(helloViewRoot));
         stage.setTitle("Hello View");
         stage.show();
