@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="658.0" fitWidth="885.0" layoutX="-493.0" layoutY="-4.0">
          <image>
-            <Image url="@mountain.jpg" />
+            <Image url="@splashscreen.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="47.0" fitWidth="55.0" layoutX="165.0" layoutY="457.0">
@@ -22,24 +22,24 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="144.0" layoutX="132.0" layoutY="506.0" stroke="BLACK" strokeType="INSIDE" width="121.0" />
-      <Circle fill="#00b1b8" layoutX="192.0" layoutY="325.0" onMouseClicked="#playButtonHandler" radius="72.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+      <Circle fill="#99297b" layoutX="192.0" layoutY="325.0" onMouseClicked="#playButtonHandler" radius="72.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <effect>
             <DropShadow />
          </effect>
       </Circle>
-      <Text fill="WHITE" layoutX="161.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLAY" textAlignment="CENTER" wrappingWidth="62.929969787597656">
+      <Text fill="WHITE" layoutX="159.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLAY" textAlignment="CENTER" wrappingWidth="66.92996978759766">
          <font>
-            <Font size="27.0" />
+            <Font name="Roboto Medium" size="27.0" />
          </font>
       </Text>
-      <Text fill="#002d42" layoutX="88.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STICK" textAlignment="CENTER" wrappingWidth="215.99999999999977">
+      <Text fill="#99297b" layoutX="88.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STICK" textAlignment="CENTER" wrappingWidth="215.99999999999977">
          <font>
-            <Font size="74.0" />
+            <Font name="Roboto Medium" size="74.0" />
          </font>
       </Text>
-      <Text fill="#002d42" layoutX="98.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HERO" textAlignment="CENTER" wrappingWidth="196.79998779296852">
+      <Text fill="#99297b" layoutX="98.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HERO" textAlignment="CENTER" wrappingWidth="196.79998779296852">
          <font>
-            <Font size="74.0" />
+            <Font name="Roboto Medium" size="74.0" />
          </font>
       </Text>
    </children>

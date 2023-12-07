@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class Game extends Application {
-    private final Player player = new Player();
+    private Player player = null;
     private final Vector <MyPlatform> platforms = new Vector<>();
     private final Vector <Cherry> cherries = new Vector<>();
 
@@ -24,5 +24,9 @@ public class Game extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void setPlayerName(String name){
+        this.player = new Player(name);
     }
 }

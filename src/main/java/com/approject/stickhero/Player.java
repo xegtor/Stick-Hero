@@ -1,6 +1,7 @@
 package com.approject.stickhero;
 
 public class Player {
+    private String name;
     private int position;
     private Boolean isAboveStick;
     private Boolean isJumping;
@@ -8,7 +9,8 @@ public class Player {
     private int score;
     private int cherryCount;
 
-    public Player() {
+    public Player(String name) {
+        this.name = name;
         this.position = 0;
         this.isAboveStick = true;
         this.isJumping = false;
