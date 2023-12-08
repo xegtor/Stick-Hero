@@ -3,6 +3,7 @@ package com.approject.stickhero;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +21,7 @@ import javafx.util.Duration;
 import java.util.Random;
 
 public class MainGame extends Application {
+    Stage stage = new Stage();
 
     private final Random random = new Random();
 
@@ -29,6 +31,7 @@ public class MainGame extends Application {
     private Timeline extendTimelineHeight;
     private Timeline extendTimelineY;
     private boolean rotated = false;
+    private Boolean isDead = false;
 
     private ImageView player;
 
@@ -36,10 +39,10 @@ public class MainGame extends Application {
     public void start(Stage primaryStage) {
         Pane root = createContent();
         Scene scene = new Scene(root, 392, 650);
-        primaryStage.setTitle("Stick Hero Game");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();
+        stage.setTitle("Stick Hero Game");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 
     private Pane createContent() {
@@ -71,7 +74,7 @@ public class MainGame extends Application {
         scoreText.setStroke(Color.BLACK);
         scoreText.setFont(new Font(24));
 
-        stick = new Rectangle(4, 0, Color.BLACK);
+        stick = new Rectangle(4, 0, Color.RED);
 
         stick.setTranslateX(rectangle1.getX() + rectangle1.getWidth() - 4);
         stick.setTranslateY(rectangle1.getY());
@@ -136,6 +139,10 @@ public class MainGame extends Application {
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(2), player);
         translateTransition.setFromX(player.getX());
         translateTransition.setToX(stick.getHeight());
+
+        if (stick.getHeight()<rectangle2.getX() - rectangle1.getX() - rectangle1.getWidth() || stick.getHeight()>rectangle2.getX()+rectangle2.getWidth() - rectangle1.getX() - rectangle1.getWidth()){
+            isDead = true;
+        }
 
         translateTransition.play();
 
