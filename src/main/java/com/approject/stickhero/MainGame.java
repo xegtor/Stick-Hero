@@ -25,6 +25,7 @@ import java.util.Random;
 
 public class MainGame extends Application {
     private Score highScore = new Score(0, "Default");
+    private int cherryScore = 0;
     private Score currentScore = new Score(0, "Default");
     Stage stage = new Stage();
     Pane root;
@@ -45,6 +46,8 @@ public class MainGame extends Application {
     private Boolean sceneTransition = false;
     private ImageView player;
     private ImageView cherry;
+    private Boolean cherryCollected = false;
+    private Boolean isAlive = true;
 
     @Override
     public void start(Stage primaryStage) {
@@ -189,8 +192,10 @@ public class MainGame extends Application {
         translateTransition.setByX(stick.getHeight() + 15);
         isMoving = true;
         if (cherrySpawn){
+            cherryCollected = false;
             checkCollisions();
         }
+        checkPillarCollision();
         translateTransition.play();
 
         translateTransition.setOnFinished(gameState -> {
@@ -214,8 +219,30 @@ public class MainGame extends Application {
         javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (player.getBoundsInParent().intersects(cherry.getBoundsInParent())) {
-                    System.out.println("Collision detected!");
+                if (player.getBoundsInParent().intersects(cherry.getBoundsInParent()) && !cherryCollected && player.getY()==cherry.getY()) {
+                    System.out.println("Cherry detected!");
+                    cherryScore++;
+                    cherryCollected = true;
+                    root.getChildren().remove(cherry);
+                }
+            }
+        };
+
+        timer.start();
+    }
+
+    private void checkPillarCollision(){
+        javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                if (player.getBoundsInParent().intersects(rectangle2.getBoundsInParent()) && isAlive && isFlipped%2==0){
+                    System.out.println("Pillar detected!");
+                    isAlive = false;
+                    try {
+                        gameOver();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         };
@@ -278,7 +305,11 @@ public class MainGame extends Application {
         TranslateTransition moveTransition = new TranslateTransition(Duration.seconds(3), rectangle2);
         TranslateTransition stickTransition = new TranslateTransition(Duration.seconds(3), stick);
         TranslateTransition playerTransition = new TranslateTransition(Duration.seconds(3), player);
-
+        if (cherrySpawn && !cherryCollected){
+            TranslateTransition cherryTransition = new TranslateTransition(Duration.seconds(3), cherry);
+            cherryTransition.setByX(-distance-rectangle1.getWidth());
+            cherryTransition.play();
+        }
         deleteTransition.setByX(-distance-rectangle1.getWidth());
         moveTransition.setByX(-distance-rectangle1.getWidth());
         stickTransition.setByX(-distance-rectangle1.getWidth());
