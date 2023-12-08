@@ -3,7 +3,6 @@ package com.approject.stickhero;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,8 +11,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -26,13 +23,12 @@ public class MainGame extends Application {
     private final Random random = new Random();
 
     private Rectangle stick;
-    private Rectangle rectangle1;
-    private Rectangle rectangle2;
+    private Rectangle rectangle1 = null;
+    private Rectangle rectangle2 = null;
+    private double distance = 0;
     private Timeline extendTimelineHeight;
     private Timeline extendTimelineY;
     private boolean rotated = false;
-    private Boolean gameOver = false;
-
     private ImageView player;
 
     @Override
@@ -49,11 +45,16 @@ public class MainGame extends Application {
         Pane anchorPane = new AnchorPane();
 
         ImageView background = new ImageView(new Image(getClass().getResourceAsStream("mountain.jpg")));
-        background.setX((double) -392/2);
-        background.setY((double) -645/2);
+        background.setX((double) - 392/2);
+        background.setY((double) - 650/2);
         anchorPane.getChildren().add(background);
 
-        rectangle1 = createRandomRectangle();
+        if (rectangle2==null){
+            rectangle1 = createRandomRectangle();
+        }
+        else{
+            rectangle1 = new Rectangle(rectangle1.getX(), 510, rectangle2.getWidth(), 150);
+        }
         rectangle2 = createRandomRectangle();
 
         player = new ImageView(new Image(getClass().getResourceAsStream("sprite.png")));
@@ -63,23 +64,18 @@ public class MainGame extends Application {
         player.setY(rectangle1.getY()-player.getFitHeight());
         anchorPane.getChildren().add(player);
 
-        double distance = random.nextInt(150) + 50;
+        distance = random.nextInt(150) + 50;
         rectangle2.setX(rectangle1.getX() + rectangle1.getWidth() + distance);
 
         anchorPane.getChildren().addAll(rectangle1, rectangle2);
 
-        Text scoreText = new Text("0");
-        scoreText.setLayoutX(317);
-        scoreText.setLayoutY(42);
-        scoreText.setStroke(Color.BLACK);
-        scoreText.setFont(new Font(24));
+        rotated = false;
 
         stick = new Rectangle(4, 0, Color.RED);
-
         stick.setTranslateX(rectangle1.getX() + rectangle1.getWidth() - 4);
         stick.setTranslateY(rectangle1.getY());
 
-        anchorPane.getChildren().addAll(stick, scoreText);
+        anchorPane.getChildren().add(stick);
 
         anchorPane.setOnMousePressed(this::handleMousePressed);
         anchorPane.setOnMouseReleased(this::handleMouseReleased);
@@ -138,36 +134,42 @@ public class MainGame extends Application {
 
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(2), player);
         translateTransition.setByX(stick.getHeight() + 15);
-
-        if (stick.getHeight() < rectangle2.getX() - rectangle1.getX() - rectangle1.getWidth() || stick.getHeight()>rectangle2.getX()+rectangle2.getWidth() - rectangle1.getX() - rectangle1.getWidth()){
-            gameOver();
-        }
-        else{
-            gameContinue();
-        }
-
         translateTransition.play();
+
+        translateTransition.setOnFinished(gameState -> {
+            if (stick.getHeight() < rectangle2.getX() - rectangle1.getX() - rectangle1.getWidth() || stick.getHeight() > rectangle2.getX() + rectangle2.getWidth() - rectangle1.getX() - rectangle1.getWidth()){
+                gameOver();
+            }
+            else{
+                gameContinue();
+            }
+        });
     }
 
     public void gameOver(){
         System.out.println("Game Over");
     }
     public void gameContinue(){
+        TranslateTransition deleteTransition = new TranslateTransition(Duration.seconds(3), rectangle1);
+        TranslateTransition moveTransition = new TranslateTransition(Duration.seconds(3), rectangle2);
+        TranslateTransition stickTransition = new TranslateTransition(Duration.seconds(3), stick);
+        TranslateTransition playerTransition = new TranslateTransition(Duration.seconds(3), player);
 
-        rectangle1 = new Rectangle(rectangle2.getX(), rectangle2.getY(), rectangle2.getWidth(), rectangle2.getHeight());
-        rectangle2 = createRandomRectangle();
+        deleteTransition.setByX(-rectangle1.getX()-rectangle1.getWidth());
+        moveTransition.setByX(-distance-rectangle1.getWidth());
+        stickTransition.setByX(-distance-rectangle1.getWidth());
+        playerTransition.setByX(-distance-rectangle1.getWidth());
 
-        player.setX(rectangle1.getX() + rectangle1.getWidth() - 30);
-        player.setY(rectangle1.getY() - player.getFitHeight());
+        deleteTransition.play();
+        moveTransition.play();
+        stickTransition.play();
+        playerTransition.play();
 
-        double distance = random.nextInt(150) + 50;
-        rectangle2.setX(rectangle1.getX() + rectangle1.getWidth() + distance);
-
-        stick.setHeight(0);
-        stick.setTranslateX(rectangle1.getX() + rectangle1.getWidth() - 4);
-        stick.setTranslateY(rectangle1.getY());
-
-        rotated = false;
+        moveTransition.setOnFinished(event -> {
+            Scene scene = new Scene(createContent(), 392, 650);
+            stage.setScene(scene);
+            stage.show();
+        });
     }
 
     public static void main(String[] args) {
