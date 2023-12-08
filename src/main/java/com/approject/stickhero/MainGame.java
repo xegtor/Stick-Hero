@@ -149,6 +149,10 @@ public class MainGame extends Application {
                 }
             }
             else{
+                currentScore.setScore(currentScore.getScore() + 1);
+                if (currentScore.getScore() > highScore.getScore()){
+                    highScore = currentScore.clone();
+                }
                 gameContinue();
             }
         });

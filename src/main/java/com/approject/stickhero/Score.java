@@ -17,4 +17,8 @@ public class Score {
     public String getName() {
         return name;
     }
+
+    public Score clone() {
+        return new Score(this.getScore(), this.getName());
+    }
 }
