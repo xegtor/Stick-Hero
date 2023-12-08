@@ -24,9 +24,13 @@ public class MainGame extends Application {
     private final Random random = new Random();
 
     private Rectangle stick;
+    private Rectangle rectangle1;
+    private Rectangle rectangle2;
     private Timeline extendTimelineHeight;
     private Timeline extendTimelineY;
     private boolean rotated = false;
+
+    private ImageView player;
 
     @Override
     public void start(Stage primaryStage) {
@@ -46,8 +50,15 @@ public class MainGame extends Application {
         background.setY((double) -645 /2);
         anchorPane.getChildren().add(background);
 
-        Rectangle rectangle1 = createRandomRectangle();
-        Rectangle rectangle2 = createRandomRectangle();
+        rectangle1 = createRandomRectangle();
+        rectangle2 = createRandomRectangle();
+
+        player = new ImageView(new Image(getClass().getResourceAsStream("sprite.png")));
+        player.setFitHeight(30);
+        player.setFitWidth(30);
+        player.setX(rectangle1.getX() + rectangle1.getWidth() / 2 - player.getFitWidth() / 2);
+        player.setY(rectangle1.getY()-player.getFitHeight());
+        anchorPane.getChildren().add(player);
 
         double distance = random.nextInt(150) + 50;
         rectangle2.setX(rectangle1.getX() + rectangle1.getWidth() + distance);
@@ -121,6 +132,13 @@ public class MainGame extends Application {
 
             rotated = true;
         }
+
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(2), player);
+        translateTransition.setFromX(player.getX());
+        translateTransition.setToX(stick.getHeight());
+
+        translateTransition.play();
+
     }
 
     public static void main(String[] args) {
