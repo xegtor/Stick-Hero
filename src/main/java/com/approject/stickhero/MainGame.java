@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -189,6 +188,9 @@ public class MainGame extends Application {
         translateTransition = new TranslateTransition(Duration.seconds(2), player);
         translateTransition.setByX(stick.getHeight() + 15);
         isMoving = true;
+        if (cherrySpawn){
+            checkCollisions();
+        }
         translateTransition.play();
 
         translateTransition.setOnFinished(gameState -> {
@@ -208,6 +210,19 @@ public class MainGame extends Application {
             }
         });
     }
+    private void checkCollisions() {
+        javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                if (player.getBoundsInParent().intersects(cherry.getBoundsInParent())) {
+                    System.out.println("Collision detected!");
+                }
+            }
+        };
+
+        timer.start();
+    }
+
     private void handleMouseClicked(MouseEvent event){
         if (!isMoving || sceneTransition || pause){
             return;
