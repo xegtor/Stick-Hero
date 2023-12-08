@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SplashController {
-
+    private Game myGame;
     @FXML
     private void playButtonHandler(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("playerName.fxml"));
@@ -22,15 +22,16 @@ public class SplashController {
         PlayerNameController playerNameInputController = loader.getController();
 
         Stage playerNameInputDialog = new Stage();
+        playerNameInputController.setMyGame(myGame);
+        playerNameInputController.setStage(playerNameInputDialog);
+
         playerNameInputDialog.initModality(Modality.APPLICATION_MODAL);
         playerNameInputDialog.setTitle("Enter Your Name");
         playerNameInputDialog.setScene(new Scene(playerNameInputRoot));
         playerNameInputDialog.showAndWait();
 
-        // Get the player name from the input window
         String playerName = playerNameInputController.getPlayerName();
 
-        // Now you can pass the player name to your main game controller
         FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
         Parent helloViewRoot = gameLoader.load();
         Game gameController = gameLoader.getController();
@@ -40,5 +41,13 @@ public class SplashController {
         stage.setScene(new Scene(helloViewRoot));
         stage.setTitle("Hello View");
         stage.show();
+    }
+
+    public void setGame(Game game){
+        this.myGame = game;
+    }
+
+    public Game getGame(){
+        return this.myGame;
     }
 }

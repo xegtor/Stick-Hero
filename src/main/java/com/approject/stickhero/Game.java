@@ -10,14 +10,17 @@ import java.util.Vector;
 public class Game extends Application {
     private Player player = null;
     private final Vector <MyPlatform> platforms = new Vector<>();
-    private final Vector <Cherry> cherries = new Vector<>();
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("splashTest.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("splashTest.fxml"));
+        Parent root = loader.load();
+
+        SplashController splashController = loader.getController();
+        splashController.setGame(this);
 
         Scene scene = new Scene(root);
-        stage.setTitle("Hello!");
+        stage.setTitle("Stick Hero");
         stage.setScene(scene);
         stage.show();
     }
