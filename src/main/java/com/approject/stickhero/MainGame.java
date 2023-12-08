@@ -31,7 +31,7 @@ public class MainGame extends Application {
     private Timeline extendTimelineHeight;
     private Timeline extendTimelineY;
     private boolean rotated = false;
-    private Boolean isDead = false;
+    private Boolean gameOver = false;
 
     private ImageView player;
 
@@ -49,8 +49,8 @@ public class MainGame extends Application {
         Pane anchorPane = new AnchorPane();
 
         ImageView background = new ImageView(new Image(getClass().getResourceAsStream("mountain.jpg")));
-        background.setX((double) -392 /2);
-        background.setY((double) -645 /2);
+        background.setX((double) -392/2);
+        background.setY((double) -645/2);
         anchorPane.getChildren().add(background);
 
         rectangle1 = createRandomRectangle();
@@ -59,7 +59,7 @@ public class MainGame extends Application {
         player = new ImageView(new Image(getClass().getResourceAsStream("sprite.png")));
         player.setFitHeight(30);
         player.setFitWidth(30);
-        player.setX(rectangle1.getX() + rectangle1.getWidth() / 2 - player.getFitWidth() / 2);
+        player.setX(rectangle1.getX() + rectangle1.getWidth() - 30);
         player.setY(rectangle1.getY()-player.getFitHeight());
         anchorPane.getChildren().add(player);
 
@@ -137,15 +137,37 @@ public class MainGame extends Application {
         }
 
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(2), player);
-        translateTransition.setFromX(player.getX());
-        translateTransition.setToX(stick.getHeight());
+        translateTransition.setByX(stick.getHeight() + 15);
 
-        if (stick.getHeight()<rectangle2.getX() - rectangle1.getX() - rectangle1.getWidth() || stick.getHeight()>rectangle2.getX()+rectangle2.getWidth() - rectangle1.getX() - rectangle1.getWidth()){
-            isDead = true;
+        if (stick.getHeight() < rectangle2.getX() - rectangle1.getX() - rectangle1.getWidth() || stick.getHeight()>rectangle2.getX()+rectangle2.getWidth() - rectangle1.getX() - rectangle1.getWidth()){
+            gameOver();
+        }
+        else{
+            gameContinue();
         }
 
         translateTransition.play();
+    }
 
+    public void gameOver(){
+        System.out.println("Game Over");
+    }
+    public void gameContinue(){
+
+        rectangle1 = new Rectangle(rectangle2.getX(), rectangle2.getY(), rectangle2.getWidth(), rectangle2.getHeight());
+        rectangle2 = createRandomRectangle();
+
+        player.setX(rectangle1.getX() + rectangle1.getWidth() - 30);
+        player.setY(rectangle1.getY() - player.getFitHeight());
+
+        double distance = random.nextInt(150) + 50;
+        rectangle2.setX(rectangle1.getX() + rectangle1.getWidth() + distance);
+
+        stick.setHeight(0);
+        stick.setTranslateX(rectangle1.getX() + rectangle1.getWidth() - 4);
+        stick.setTranslateY(rectangle1.getY());
+
+        rotated = false;
     }
 
     public static void main(String[] args) {
