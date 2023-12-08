@@ -2,6 +2,7 @@ package com.approject.stickhero;
 
 import javafx.animation.*;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,9 +16,12 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.Random;
 
 public class MainGame extends Application {
+    private Score highScore = new Score(0, "Default");
+    private Score currentScore = new Score(0, "Default");
     Stage stage = new Stage();
 
     private final Random random = new Random();
@@ -138,7 +142,11 @@ public class MainGame extends Application {
 
         translateTransition.setOnFinished(gameState -> {
             if (stick.getHeight() < rectangle2.getX() - rectangle1.getX() - rectangle1.getWidth() || stick.getHeight() > rectangle2.getX() + rectangle2.getWidth() - rectangle1.getX() - rectangle1.getWidth()){
-                gameOver();
+                try {
+                    gameOver();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
             else{
                 gameContinue();
@@ -146,8 +154,10 @@ public class MainGame extends Application {
         });
     }
 
-    public void gameOver(){
-        System.out.println("Game Over");
+    public void gameOver() throws IOException {
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("deathScreen.fxml")), 392, 650);
+        stage.setScene(scene);
+        stage.show();
     }
     public void gameContinue(){
         TranslateTransition deleteTransition = new TranslateTransition(Duration.seconds(3), rectangle1);
