@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -26,6 +28,7 @@ public class MainGame extends Application {
     private Score highScore = new Score(0, "Default");
     private Score currentScore = new Score(0, "Default");
     Stage stage = new Stage();
+    Pane root;
 
     private final Random random = new Random();
     private Rectangle stick;
@@ -34,26 +37,31 @@ public class MainGame extends Application {
     private double distance = 0;
     private Timeline extendTimelineHeight;
     private Timeline extendTimelineY;
+    private TranslateTransition translateTransition;
     private int isFlipped = 0;
     private boolean rotated = false;
     private boolean isMoving = false;
+    private Boolean cherrySpawn = false;
+    private Boolean pause = false;
+    private Boolean sceneTransition = false;
     private ImageView player;
     private ImageView cherry;
-    private Boolean cherrySpawn = false;
-    Pane anchorPane;
 
     @Override
     public void start(Stage primaryStage) {
-        Pane root = createContent();
+        root = createContent();
         Scene scene = new Scene(root, 392, 650);
         stage.setTitle("Stick Hero Game");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+
+        root.setFocusTraversable(true);
+        root.requestFocus();
     }
 
     private Pane createContent() {
-        anchorPane = new AnchorPane();
+        Pane anchorPane = new AnchorPane();
 
         ImageView background = new ImageView(new Image(getClass().getResourceAsStream("mountain.jpg")));
         background.setX((double) - 392/2);
@@ -114,10 +122,14 @@ public class MainGame extends Application {
         rotated = false;
         isMoving = false;
         isFlipped = 0;
+        sceneTransition = false;
+        pause = false;
 
         anchorPane.setOnMousePressed(this::handleMousePressed);
         anchorPane.setOnMouseReleased(this::handleMouseReleased);
         anchorPane.setOnMouseClicked(this::handleMouseClicked);
+        anchorPane.setOnKeyTyped(this::handlePauseResume);
+        anchorPane.setFocusTraversable(true);
 
         return anchorPane;
     }
@@ -140,7 +152,7 @@ public class MainGame extends Application {
     }
 
     private void handleMousePressed(MouseEvent event) {
-        if (rotated){
+        if (rotated || isMoving || sceneTransition || pause){
             return;
         }
         extendTimelineHeight = new Timeline(
@@ -154,7 +166,7 @@ public class MainGame extends Application {
     }
 
     private void handleMouseReleased(MouseEvent event) {
-        if (isMoving){
+        if (isMoving || sceneTransition || pause){
             return;
         }
 
@@ -174,7 +186,7 @@ public class MainGame extends Application {
             rotated = true;
         }
 
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(2), player);
+        translateTransition = new TranslateTransition(Duration.seconds(2), player);
         translateTransition.setByX(stick.getHeight() + 15);
         isMoving = true;
         translateTransition.play();
@@ -196,12 +208,14 @@ public class MainGame extends Application {
             }
         });
     }
-    public void handleMouseClicked(MouseEvent event){
-        if (!isMoving || isFlipped==0){
-            isFlipped++;
+    private void handleMouseClicked(MouseEvent event){
+        if (!isMoving || sceneTransition || pause){
             return;
         }
-        if (!(isFlipped%2==0)){
+        if (isFlipped==0){
+            isFlipped++;
+        }
+        else if (!(isFlipped%2==0)){
             player.setScaleY(-1);
             player.setY(player.getY()+player.getFitHeight());
             isFlipped++;
@@ -212,12 +226,39 @@ public class MainGame extends Application {
             isFlipped++;
         }
     }
+    private void handlePauseResume(KeyEvent event){
+        if (sceneTransition){
+            return;
+        }
+        if (!pause){
+            pause();
+        }
+        else{
+            resume();
+        }
+    }
+    private void pause(){
+        System.out.println("Paused");
+        pause = true;
+        if (isMoving) {
+            translateTransition.pause();
+        }
+    }
+    private void resume(){
+        System.out.println("Resumed");
+        pause = false;
+        if (isMoving) {
+            translateTransition.play();
+        }
+    }
     public void gameOver() throws IOException {
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("deathScreen.fxml")), 392, 650);
+
         stage.setScene(scene);
         stage.show();
     }
     public void gameContinue(){
+        sceneTransition = true;
         TranslateTransition deleteTransition = new TranslateTransition(Duration.seconds(3), rectangle1);
         TranslateTransition moveTransition = new TranslateTransition(Duration.seconds(3), rectangle2);
         TranslateTransition stickTransition = new TranslateTransition(Duration.seconds(3), stick);
@@ -234,9 +275,13 @@ public class MainGame extends Application {
         playerTransition.play();
 
         moveTransition.setOnFinished(event -> {
-            Scene scene = new Scene(createContent(), 392, 650);
+            root = createContent();
+            Scene scene = new Scene(root, 392, 650);
             stage.setScene(scene);
             stage.show();
+
+            root.setFocusTraversable(true);
+            root.requestFocus();
         });
     }
 
