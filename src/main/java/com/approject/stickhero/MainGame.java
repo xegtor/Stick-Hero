@@ -155,7 +155,7 @@ public class MainGame extends Application {
         TranslateTransition stickTransition = new TranslateTransition(Duration.seconds(3), stick);
         TranslateTransition playerTransition = new TranslateTransition(Duration.seconds(3), player);
 
-        deleteTransition.setByX(-rectangle1.getX()-rectangle1.getWidth());
+        deleteTransition.setByX(-distance-rectangle1.getWidth());
         moveTransition.setByX(-distance-rectangle1.getWidth());
         stickTransition.setByX(-distance-rectangle1.getWidth());
         playerTransition.setByX(-distance-rectangle1.getWidth());
