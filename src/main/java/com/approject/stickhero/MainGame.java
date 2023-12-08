@@ -28,7 +28,7 @@ public class MainGame extends Application {
     Stage stage = new Stage();
 
     private final Random random = new Random();
-
+    private Boolean isFliped = Boolean.FALSE;
     private Rectangle stick;
     private Rectangle rectangle1 = null;
     private Rectangle rectangle2 = null;
@@ -38,6 +38,8 @@ public class MainGame extends Application {
     private boolean rotated = false;
     private ImageView player;
     private ImageView cherry;
+    private Boolean cherrySpawn = Boolean.FALSE;
+    Pane anchorPane;
 
     @Override
     public void start(Stage primaryStage) {
@@ -50,7 +52,7 @@ public class MainGame extends Application {
     }
 
     private Pane createContent() {
-        Pane anchorPane = new AnchorPane();
+        anchorPane = new AnchorPane();
 
         ImageView background = new ImageView(new Image(getClass().getResourceAsStream("mountain.jpg")));
         background.setX((double) - 392/2);
@@ -99,7 +101,8 @@ public class MainGame extends Application {
         AnchorPane.setLeftAnchor(highScoreLabel, 20.0);
         anchorPane.getChildren().add(highScoreLabel);
 
-        if (random.nextBoolean()){
+        cherrySpawn = random.nextBoolean();
+        if (cherrySpawn){
             cherry = new ImageView(new Image(getClass().getResourceAsStream("cherry.png")));
             cherry.setFitHeight(30);
             cherry.setFitWidth(30);
@@ -111,8 +114,23 @@ public class MainGame extends Application {
 
         anchorPane.setOnMousePressed(this::handleMousePressed);
         anchorPane.setOnMouseReleased(this::handleMouseReleased);
+        anchorPane.setOnMouseClicked(this::handleMouseClick);
 
         return anchorPane;
+    }
+
+    private void handleMouseClick(MouseEvent mouseEvent) {
+        if(rotated){
+            if (!isFliped) {
+                player.setScaleY(-1);
+                player.setY(player.getY() + 30);
+                isFliped = Boolean.TRUE;
+            }else{
+                player.setScaleY(1);
+                player.setY(player.getY() - 30);
+                isFliped = Boolean.FALSE;
+            }
+        }
     }
 
     private Rectangle createRandomRectangle() {
@@ -177,6 +195,16 @@ public class MainGame extends Application {
                 }
             }
             else{
+                if (cherrySpawn){
+                    anchorPane.getChildren().remove(cherry);
+                    if (isFliped){
+                        try {
+                            gameOver();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
                 currentScore.setScore(currentScore.getScore() + 1);
                 if (currentScore.getScore() > highScore.getScore()){
                     highScore = currentScore.clone();
