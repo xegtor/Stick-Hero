@@ -37,6 +37,7 @@ public class MainGame extends Application {
     private Timeline extendTimelineY;
     private boolean rotated = false;
     private ImageView player;
+    private ImageView cherry;
 
     @Override
     public void start(Stage primaryStage) {
@@ -97,6 +98,16 @@ public class MainGame extends Application {
         AnchorPane.setTopAnchor(highScoreLabel, 20.0);
         AnchorPane.setLeftAnchor(highScoreLabel, 20.0);
         anchorPane.getChildren().add(highScoreLabel);
+
+        if (random.nextBoolean()){
+            cherry = new ImageView(new Image(getClass().getResourceAsStream("cherry.png")));
+            cherry.setFitHeight(30);
+            cherry.setFitWidth(30);
+            cherry.setX(rectangle1.getX() + rectangle1.getWidth()+random.nextInt((int) distance - 30));
+            if (random.nextBoolean()) cherry.setY(510);
+            else cherry.setY(510 - 30);
+            anchorPane.getChildren().add(cherry);
+        }
 
         anchorPane.setOnMousePressed(this::handleMousePressed);
         anchorPane.setOnMouseReleased(this::handleMouseReleased);
