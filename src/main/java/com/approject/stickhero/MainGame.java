@@ -28,17 +28,18 @@ public class MainGame extends Application {
     Stage stage = new Stage();
 
     private final Random random = new Random();
-    private Boolean isFliped = Boolean.FALSE;
     private Rectangle stick;
     private Rectangle rectangle1 = null;
     private Rectangle rectangle2 = null;
     private double distance = 0;
     private Timeline extendTimelineHeight;
     private Timeline extendTimelineY;
+    private int isFlipped = 0;
     private boolean rotated = false;
+    private boolean isMoving = false;
     private ImageView player;
     private ImageView cherry;
-    private Boolean cherrySpawn = Boolean.FALSE;
+    private Boolean cherrySpawn = false;
     Pane anchorPane;
 
     @Override
@@ -79,8 +80,6 @@ public class MainGame extends Application {
 
         anchorPane.getChildren().addAll(rectangle1, rectangle2);
 
-        rotated = false;
-
         stick = new Rectangle(4, 0, Color.RED);
         stick.setTranslateX(rectangle1.getX() + rectangle1.getWidth() - 4);
         stick.setTranslateY(rectangle1.getY());
@@ -104,33 +103,23 @@ public class MainGame extends Application {
         cherrySpawn = random.nextBoolean();
         if (cherrySpawn){
             cherry = new ImageView(new Image(getClass().getResourceAsStream("cherry.png")));
-            cherry.setFitHeight(30);
-            cherry.setFitWidth(30);
+            cherry.setFitHeight(20);
+            cherry.setFitWidth(20);
             cherry.setX(rectangle1.getX() + rectangle1.getWidth()+random.nextInt((int) distance - 30));
             if (random.nextBoolean()) cherry.setY(510);
             else cherry.setY(510 - 30);
             anchorPane.getChildren().add(cherry);
         }
 
+        rotated = false;
+        isMoving = false;
+        isFlipped = 0;
+
         anchorPane.setOnMousePressed(this::handleMousePressed);
         anchorPane.setOnMouseReleased(this::handleMouseReleased);
-        anchorPane.setOnMouseClicked(this::handleMouseClick);
+        anchorPane.setOnMouseClicked(this::handleMouseClicked);
 
         return anchorPane;
-    }
-
-    private void handleMouseClick(MouseEvent mouseEvent) {
-        if(rotated){
-            if (!isFliped) {
-                player.setScaleY(-1);
-                player.setY(player.getY() + 30);
-                isFliped = Boolean.TRUE;
-            }else{
-                player.setScaleY(1);
-                player.setY(player.getY() - 30);
-                isFliped = Boolean.FALSE;
-            }
-        }
     }
 
     private Rectangle createRandomRectangle() {
@@ -162,10 +151,13 @@ public class MainGame extends Application {
                 new KeyFrame(Duration.seconds(2), new KeyValue(stick.yProperty(), -510))
         );
         extendTimelineY.play();
-        rotated = false;
     }
 
     private void handleMouseReleased(MouseEvent event) {
+        if (isMoving){
+            return;
+        }
+
         if (extendTimelineHeight != null && extendTimelineY != null) {
             extendTimelineHeight.stop();
             extendTimelineY.stop();
@@ -184,6 +176,7 @@ public class MainGame extends Application {
 
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(2), player);
         translateTransition.setByX(stick.getHeight() + 15);
+        isMoving = true;
         translateTransition.play();
 
         translateTransition.setOnFinished(gameState -> {
@@ -191,20 +184,10 @@ public class MainGame extends Application {
                 try {
                     gameOver();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
             }
             else{
-                if (cherrySpawn){
-                    anchorPane.getChildren().remove(cherry);
-                    if (isFliped){
-                        try {
-                            gameOver();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
                 currentScore.setScore(currentScore.getScore() + 1);
                 if (currentScore.getScore() > highScore.getScore()){
                     highScore = currentScore.clone();
@@ -213,7 +196,22 @@ public class MainGame extends Application {
             }
         });
     }
-
+    public void handleMouseClicked(MouseEvent event){
+        if (!isMoving || isFlipped==0){
+            isFlipped++;
+            return;
+        }
+        if (!(isFlipped%2==0)){
+            player.setScaleY(-1);
+            player.setY(player.getY()+player.getFitHeight());
+            isFlipped++;
+        }
+        else{
+            player.setScaleY(1);
+            player.setY(player.getY()-player.getFitHeight());
+            isFlipped++;
+        }
+    }
     public void gameOver() throws IOException {
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("deathScreen.fxml")), 392, 650);
         stage.setScene(scene);
