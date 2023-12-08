@@ -4,6 +4,7 @@ import javafx.animation.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,6 +13,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -80,6 +84,20 @@ public class MainGame extends Application {
         stick.setTranslateY(rectangle1.getY());
 
         anchorPane.getChildren().add(stick);
+
+        Label score = new Label("Score: " + currentScore.getScore());
+        score.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        score.setStyle("-fx-background-color: rgba(255, 255, 255, 0);");
+        AnchorPane.setTopAnchor(score, 20.0);
+        AnchorPane.setRightAnchor(score, 20.0);
+        anchorPane.getChildren().add(score);
+
+        Label highScoreLabel = new Label("High Score: " + highScore.getScore());
+        highScoreLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        highScoreLabel.setStyle("-fx-background-color: rgba(255, 255, 255, 0);");
+        AnchorPane.setTopAnchor(highScoreLabel, 20.0);
+        AnchorPane.setLeftAnchor(highScoreLabel, 20.0);
+        anchorPane.getChildren().add(highScoreLabel);
 
         anchorPane.setOnMousePressed(this::handleMousePressed);
         anchorPane.setOnMouseReleased(this::handleMouseReleased);
