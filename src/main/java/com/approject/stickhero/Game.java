@@ -75,6 +75,11 @@ public class Game extends Application implements Serializable {
         mainGame.resetScore();
     }
     public static void main(String[] args) {
+        Result result = JUnitCore.runClasses(StickHeroTester.class);
+        for (Failure failure : result.getFailures()) {
+            System.out.println(failure.toString());
+        }
+        System.out.println(result.wasSuccessful());
         launch(args);
     }
 }

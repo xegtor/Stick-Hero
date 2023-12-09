@@ -1,41 +1,236 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement>D:/College_Stuff/Assignments/AP/Stick-Hero/src/main/java/com/approject/stickhero</OriginalElement>
+  <OriginalElement>C:/Users/Xegtor/IdeaProjects/Stick-Hero/src/main/java/com/approject/stickhero</OriginalElement>
   <nodes>
-    <node x="-103.0" y="-74.41979010494751">com.approject.stickhero.Player</node>
-    <node x="-20.212500000000034" y="340.0">com.approject.stickhero.Game</node>
-    <node x="124.0" y="58.0">com.approject.stickhero.MyPlatform</node>
-    <node x="-272.640179910045" y="253.29010494752623">com.approject.stickhero.Stick</node>
-    <node x="350.0" y="241.29010494752623">com.approject.stickhero.MainApp</node>
-    <node x="-294.7361319340329" y="457.85607196401793">com.approject.stickhero.HelloViewController</node>
-    <node x="-330.7361319340329" y="340.0">com.approject.stickhero.SplashController</node>
-    <node x="350.0" y="356.5937031484258">com.approject.stickhero.Cherry</node>
+    <node x="60.5" y="85.0">com.approject.stickhero.MyPlatform</node>
+    <node x="172.5" y="1795.5">com.approject.stickhero.PlayerNameController</node>
+    <node x="-154.5" y="648.0">com.approject.stickhero.SplashController</node>
+    <node x="397.5" y="1327.5">com.approject.stickhero.Game</node>
+    <node x="672.5" y="371.5">com.approject.stickhero.MainGame</node>
+    <node x="954.0" y="120.0">com.approject.stickhero.isMoving</node>
+    <node x="-153.5" y="73.5">com.approject.stickhero.SwitchMaps</node>
+    <node x="169.0" y="614.0">com.approject.stickhero.StickHeroTester</node>
+    <node x="654.0" y="-328.0">com.approject.stickhero.Movable</node>
+    <node x="-27.0" y="-112.0">com.approject.stickhero.Stick</node>
+    <node x="854.0" y="-100.0">com.approject.stickhero.isStationary</node>
+    <node x="704.5" y="96.5">com.approject.stickhero.DeathScreen</node>
+    <node x="429.0" y="-170.0">com.approject.stickhero.Player</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Cherry" relationship="TO_MANY">
-      <point x="121.5" y="-19.40629685157421" />
-      <point x="-75.0" y="0.0" />
+    <edge source="com.approject.stickhero.SwitchMaps" target="com.approject.stickhero.Game" relationship="TO_ONE">
+      <point x="40.25" y="85.5" />
+      <point x="-32.75" y="599.0" />
+      <point x="147.0" y="599.0" />
+      <point x="147.0" y="1239.0" />
+      <point x="467.0" y="1239.0" />
+      <point x="467.0" y="1299.0" />
+      <point x="464.625" y="1299.0" />
+      <point x="-22.375" y="-131.5" />
     </edge>
-    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Player" relationship="CREATE">
-      <point x="-4.787499999999966" y="-80.0" />
-      <point x="96.0" y="152.0" />
+    <edge source="com.approject.stickhero.DeathScreen" target="com.approject.stickhero.Game" relationship="TO_ONE">
+      <point x="-51.25" y="62.5" />
+      <point x="755.75" y="319.0" />
+      <point x="467.0" y="319.0" />
+      <point x="467.0" y="1299.0" />
+      <point x="464.625" y="1299.0" />
+      <point x="-22.375" y="-131.5" />
     </edge>
-    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.MyPlatform" relationship="TO_MANY">
-      <point x="114.0" y="-80.0" />
-      <point x="-11.712500000000034" y="80.0" />
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.StickHeroTester" relationship="DEPENDENCY">
+      <point x="-67.125" y="-131.5" />
+      <point x="419.875" y="1299.0" />
+      <point x="287.0" y="1299.0" />
+      <point x="0.0" y="85.0" />
+    </edge>
+    <edge source="com.approject.stickhero.SplashController" target="com.approject.stickhero.SwitchMaps" relationship="DEPENDENCY">
+      <point x="0.0" y="-51.0" />
+      <point x="-13.0" y="619.0" />
+      <point x="-113.25" y="619.0" />
+      <point x="-40.25" y="85.5" />
+    </edge>
+    <edge source="com.approject.stickhero.SplashController" target="com.approject.stickhero.Game" relationship="TO_ONE">
+      <point x="94.33333333333334" y="51.0" />
+      <point x="81.33333333333337" y="1239.0" />
+      <point x="467.0" y="1239.0" />
+      <point x="467.0" y="1299.0" />
+      <point x="464.625" y="1299.0" />
+      <point x="-22.375" y="-131.5" />
+    </edge>
+    <edge source="com.approject.stickhero.StickHeroTester" target="com.approject.stickhero.MyPlatform" relationship="CREATE">
+      <point x="-59.0" y="-85.0" />
+      <point x="228.0" y="579.0" />
+      <point x="187.0" y="579.0" />
+      <point x="187.0" y="559.0" />
+      <point x="147.0" y="559.0" />
+      <point x="0.0" y="74.0" />
     </edge>
     <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Player" relationship="TO_ONE">
-      <point x="-100.78749999999997" y="-80.0" />
-      <point x="0.0" y="152.0" />
+      <point x="22.375" y="-131.5" />
+      <point x="509.375" y="1299.0" />
+      <point x="507.0" y="1299.0" />
+      <point x="507.0" y="1259.0" />
+      <point x="427.0" y="1259.0" />
+      <point x="427.0" y="259.0" />
+      <point x="627.0" y="259.0" />
+      <point x="627.0" y="79.0" />
+      <point x="635.5" y="79.0" />
+      <point x="88.5" y="109.0" />
+    </edge>
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.SplashController" relationship="DEPENDENCY">
+      <point x="-67.125" y="-131.5" />
+      <point x="419.875" y="1299.0" />
+      <point x="287.0" y="1299.0" />
+      <point x="287.0" y="1259.0" />
+      <point x="-13.0" y="1259.0" />
+      <point x="0.0" y="51.0" />
+    </edge>
+    <edge source="com.approject.stickhero.Player" target="com.approject.stickhero.Player" relationship="CREATE">
+      <point x="-118.0" y="-54.5" />
+      <point x="247.0" y="-115.5" />
+      <point x="247.0" y="219.0" />
+      <point x="517.5" y="219.0" />
+      <point x="-29.5" y="109.0" />
+    </edge>
+    <edge source="com.approject.stickhero.SplashController" target="com.approject.stickhero.PlayerNameController" relationship="DEPENDENCY">
+      <point x="-94.33333333333334" y="51.0" />
+      <point x="-107.33333333333334" y="1439.0" />
+      <point x="247.0" y="1439.0" />
+      <point x="247.0" y="1759.0" />
+      <point x="239.75" y="1759.0" />
+      <point x="-67.25" y="-143.5" />
+    </edge>
+    <edge source="com.approject.stickhero.StickHeroTester" target="com.approject.stickhero.Stick" relationship="CREATE">
+      <point x="-59.0" y="-85.0" />
+      <point x="228.0" y="579.0" />
+      <point x="187.0" y="579.0" />
+      <point x="187.0" y="559.0" />
+      <point x="27.0" y="559.0" />
+      <point x="0.0" y="51.0" />
+    </edge>
+    <edge source="com.approject.stickhero.PlayerNameController" target="com.approject.stickhero.Game" relationship="TO_ONE">
+      <point x="67.25" y="-143.5" />
+      <point x="374.25" y="1759.0" />
+      <point x="531.75" y="1759.0" />
+      <point x="44.75" y="131.5" />
+    </edge>
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.Game" relationship="DEPENDENCY">
+      <point x="-89.5" y="-0.0" />
+      <point x="267.0" y="1459.0" />
+      <point x="267.0" y="1719.0" />
+      <point x="442.25" y="1719.0" />
+      <point x="-44.75" y="131.5" />
+    </edge>
+    <edge source="com.approject.stickhero.StickHeroTester" target="com.approject.stickhero.Player" relationship="DEPENDENCY">
+      <point x="59.0" y="-85.0" />
+      <point x="346.0" y="239.0" />
+      <point x="576.5" y="239.0" />
+      <point x="29.5" y="109.0" />
+    </edge>
+    <edge source="com.approject.stickhero.isMoving" target="com.approject.stickhero.Movable" relationship="REALIZATION">
+      <point x="0.0" y="-39.0" />
+      <point x="1027.0" y="-121.0" />
+      <point x="927.0" y="-121.0" />
+      <point x="927.0" y="-241.0" />
+      <point x="763.5" y="-241.0" />
+      <point x="36.5" y="27.0" />
+    </edge>
+    <edge source="com.approject.stickhero.MainGame" target="com.approject.stickhero.Movable" relationship="TO_ONE">
+      <point x="-103.0" y="-327.5" />
+      <point x="724.0" y="339.0" />
+      <point x="687.0" y="339.0" />
+      <point x="687.0" y="79.0" />
+      <point x="690.5" y="79.0" />
+      <point x="-36.5" y="27.0" />
+    </edge>
+    <edge source="com.approject.stickhero.MainGame" target="com.approject.stickhero.isMoving" relationship="CREATE">
+      <point x="103.0" y="-327.5" />
+      <point x="930.0" y="339.0" />
+      <point x="927.0" y="339.0" />
+      <point x="927.0" y="319.0" />
+      <point x="1027.0" y="319.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.MainGame" relationship="TO_ONE">
+      <point x="22.375" y="-131.5" />
+      <point x="509.375" y="1299.0" />
+      <point x="507.0" y="1299.0" />
+      <point x="507.0" y="1259.0" />
+      <point x="865.625" y="1259.0" />
+      <point x="38.625" y="327.5" />
+    </edge>
+    <edge source="com.approject.stickhero.MainGame" target="com.approject.stickhero.Game" relationship="TO_ONE">
+      <point x="-38.625" y="327.5" />
+      <point x="788.375" y="1239.0" />
+      <point x="467.0" y="1239.0" />
+      <point x="467.0" y="1299.0" />
+      <point x="464.625" y="1299.0" />
+      <point x="-22.375" y="-131.5" />
+    </edge>
+    <edge source="com.approject.stickhero.MainGame" target="com.approject.stickhero.isStationary" relationship="CREATE">
+      <point x="103.0" y="-327.5" />
+      <point x="930.0" y="339.0" />
+      <point x="927.0" y="339.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="com.approject.stickhero.PlayerNameController" target="com.approject.stickhero.PlayerNameController" relationship="DEPENDENCY">
+      <point x="-134.5" y="-0.0" />
+      <point x="7.0" y="1939.0" />
+      <point x="7.0" y="2259.0" />
+      <point x="307.0" y="2259.0" />
+      <point x="0.0" y="143.5" />
+    </edge>
+    <edge source="com.approject.stickhero.MainGame" target="com.approject.stickhero.DeathScreen" relationship="DEPENDENCY">
+      <point x="0.0" y="-327.5" />
+      <point x="827.0" y="339.0" />
+      <point x="858.25" y="339.0" />
+      <point x="51.25" y="62.5" />
+    </edge>
+    <edge source="com.approject.stickhero.MainGame" target="com.approject.stickhero.Player" relationship="TO_ONE">
+      <point x="-103.0" y="-327.5" />
+      <point x="724.0" y="339.0" />
+      <point x="687.0" y="339.0" />
+      <point x="687.0" y="299.0" />
+      <point x="627.0" y="299.0" />
+      <point x="627.0" y="79.0" />
+      <point x="635.5" y="79.0" />
+      <point x="88.5" y="109.0" />
+    </edge>
+    <edge source="com.approject.stickhero.Player" target="com.approject.stickhero.Player" relationship="TO_MANY">
+      <point x="-118.0" y="54.5" />
+      <point x="267.0" y="-6.5" />
+      <point x="267.0" y="199.0" />
+      <point x="458.5" y="199.0" />
+      <point x="-88.5" y="109.0" />
+    </edge>
+    <edge source="com.approject.stickhero.isStationary" target="com.approject.stickhero.Movable" relationship="REALIZATION">
+      <point x="0.0" y="-39.0" />
+      <point x="927.0" y="-241.0" />
+      <point x="763.5" y="-241.0" />
+      <point x="36.5" y="27.0" />
+    </edge>
+    <edge source="com.approject.stickhero.MainGame" target="com.approject.stickhero.MainGame" relationship="DEPENDENCY">
+      <point x="-154.5" y="-0.0" />
+      <point x="487.0" y="699.0" />
+      <point x="487.0" y="1219.0" />
+      <point x="711.125" y="1219.0" />
+      <point x="-115.875" y="327.5" />
+    </edge>
+    <edge source="com.approject.stickhero.Game" target="com.approject.stickhero.MainGame" relationship="CREATE">
+      <point x="67.125" y="-131.5" />
+      <point x="554.125" y="1299.0" />
+      <point x="942.875" y="1299.0" />
+      <point x="115.875" y="327.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="1.0" showDependencies="true" x="189.5" y="263.5" />
+  <settings layout="Hierarchic Compact" zoom="0.7531010041346722" showDependencies="true" x="472.5" y="1426.5" />
   <SelectedNodes />
   <Categories>
+    <Category>Constructors</Category>
     <Category>Fields</Category>
+    <Category>Inner Classes</Category>
     <Category>Methods</Category>
+    <Category>Properties</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
