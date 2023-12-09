@@ -429,9 +429,6 @@ public class MainGame extends Application implements Serializable {
     public Boolean getAlive() {
         return isAlive;
     }
-    public Boolean getIsMoving() {
-        return isMoving;
-    }
 
     public Boolean getRotated() {
         return rotated;

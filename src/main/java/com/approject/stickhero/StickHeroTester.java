@@ -25,4 +25,10 @@ public class StickHeroTester {
         myPlatform.setStartPosition(20);
         Assert.assertEquals(20, myPlatform.getStartPosition());
     }
+    @Test
+    public void testPlayerFlyweight(){
+        Player player = Player.getPlayerScore("Default");
+        Player player2 = Player.getPlayerScore("Default");
+        Assert.assertSame(player, player2);
+    }
 }
