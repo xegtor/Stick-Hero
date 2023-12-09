@@ -27,7 +27,7 @@ public class ScoreBoard implements java.io.Serializable {
         }
     }
 
-    public ScoreBoard deSerialize(){
+    public ScoreBoard deSerialize() throws IOException, ClassNotFoundException{
         try{
             FileInputStream fileIn = new FileInputStream("scoreboard.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
