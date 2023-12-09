@@ -3,6 +3,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -11,11 +12,13 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
+import static javafx.application.Platform.exit;
+
 public class Game extends Application implements Serializable {
     private Stage mainWindow = new Stage();
     private MainGame mainGame = null;
     private Player player = null;
-
+    private static boolean passed = true;
     @Override
     public void start(Stage stage) throws IOException {
         try{
@@ -26,6 +29,13 @@ public class Game extends Application implements Serializable {
         }
         catch (ClassNotFoundException e){
             System.out.println("Class not found");
+        }
+
+        if (passed) {
+            showSuccessAlert();
+        } else {
+            showFailureAlert("Some tests have failed!");
+            exit();
         }
         this.player = Player.getPlayerScore("Default");
         this.mainGame = new MainGame();
@@ -68,6 +78,24 @@ public class Game extends Application implements Serializable {
     public void restart() throws IOException {
         start(mainWindow);
     }
+    public static void showSuccessAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Tests Passed");
+        alert.setHeaderText(null);
+        alert.setContentText("All tests have passed successfully!");
+
+        alert.showAndWait();
+    }
+
+    public static void showFailureAlert(String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Test Failed");
+        alert.setHeaderText(null);
+        alert.setContentText("Error: " + errorMessage);
+
+        alert.showAndWait();
+    }
+
     public String getPlayerName() {
         return this.player.getName();
     }
@@ -77,9 +105,9 @@ public class Game extends Application implements Serializable {
     public static void main(String[] args) {
         Result result = JUnitCore.runClasses(StickHeroTester.class);
         for (Failure failure : result.getFailures()) {
-            System.out.println(failure.toString());
+            passed = false;
         }
-        System.out.println(result.wasSuccessful());
+
         launch(args);
     }
 }
