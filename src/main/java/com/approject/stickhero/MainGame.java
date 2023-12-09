@@ -425,4 +425,15 @@ public class MainGame extends Application implements Serializable {
     public void resetScore(){
         this.currentScore = 0;
     }
+
+    public Boolean getAlive() {
+        return isAlive;
+    }
+    public Boolean getIsMoving() {
+        return isMoving;
+    }
+
+    public Boolean getRotated() {
+        return rotated;
+    }
 }
