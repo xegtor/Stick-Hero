@@ -15,9 +15,6 @@ Stick Hero is fun and intuitive game designed to show how JavaFX can be used to 
 
 **Note: Please do not spam click inputs and wait patiently for the game to respond(there might be some slow responsiveness due to different hardware configurations)**
 
-## The magic behind the Scenes(Code Explanation)
-1. The code begins with the Game class which 
-
 ## Getting Started
 
 ### Prerequisites
@@ -47,4 +44,4 @@ Stick Hero is fun and intuitive game designed to show how JavaFX can be used to 
 2. Navigate through the splash screen.
 3. Click the "Play" button to play the game.
 
-**Note: Some functionality of this file might only work in the README.md file in IntelliJ IDEA Ultimate Edition Software.**
+**Note: Some functionality of this file might only work in the README.md file in IntelliJ IDEA Ultimate Edition Software**

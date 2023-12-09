@@ -124,12 +124,14 @@ public class MainGame extends Application implements Serializable {
         Label score = new Label("Score: " + currentScore);
         score.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         score.setStyle("-fx-background-color: rgba(255, 255, 255, 0);");
+        score.setTextFill(Color.WHITE);
         AnchorPane.setTopAnchor(score, 20.0);
         AnchorPane.setRightAnchor(score, 20.0);
         anchorPane.getChildren().add(score);
 
         Label highScoreLabel = new Label("High Score: " + highScore);
         highScoreLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        highScoreLabel.setTextFill(Color.WHITE);
         highScoreLabel.setStyle("-fx-background-color: rgba(255, 255, 255, 0);");
         AnchorPane.setTopAnchor(highScoreLabel, 20.0);
         AnchorPane.setLeftAnchor(highScoreLabel, 20.0);
@@ -138,6 +140,7 @@ public class MainGame extends Application implements Serializable {
         Label cherryScoreLabel = new Label("Cherries Collected: " + cherryScore);
         cherryScoreLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         cherryScoreLabel.setStyle("-fx-background-color: rgba(255, 255, 255, 0);");
+        cherryScoreLabel.setTextFill(Color.WHITE);
         AnchorPane.setTopAnchor(cherryScoreLabel, 20.0);
         AnchorPane.setLeftAnchor(cherryScoreLabel, 135.0);
         anchorPane.getChildren().add(cherryScoreLabel);
