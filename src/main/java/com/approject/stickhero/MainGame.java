@@ -3,7 +3,6 @@ package com.approject.stickhero;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -13,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -25,7 +25,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+import java.util.Vector;
 
 public class MainGame extends Application {
     private Game myGame;
@@ -53,9 +53,22 @@ public class MainGame extends Application {
     private ImageView cherry;
     private Boolean cherryCollected = false;
     private Boolean isAlive = true;
+    private Vector<String> music = new Vector<>();
+    private MediaPlayer mediaPlayer;
 
     @Override
     public void start(Stage primaryStage) {
+        music.add("BackOnTrack.mp3");
+        music.add("Electroman.mp3");
+        music.add("StereoMadness.mp3");
+        music.add("Jumper.mp3");
+        music.add("Electrodynamix.mp3");
+
+        int randomMusic = random.nextInt(5);
+        mediaPlayer = new MediaPlayer(new Media(getClass().getResource(music.get(randomMusic)).toString()));
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();
+
         root = createContent();
         Scene scene = new Scene(root, 392, 650);
         stage.setTitle("Stick Hero Game");
@@ -309,6 +322,8 @@ public class MainGame extends Application {
         }
     }
     public void gameOver() throws IOException {
+        mediaPlayer.stop();
+        stage.close();
         MediaPlayer mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(getClass().getResource("youDied.mp3").toString()));
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("deathScreen.fxml"));
