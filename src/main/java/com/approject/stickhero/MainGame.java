@@ -24,10 +24,12 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Random;
 import java.util.Vector;
 
-public class MainGame extends Application {
+public class MainGame extends Application implements Serializable {
+    private static final long serialVersionUID = 100L;
     private Game myGame;
     private Score highScore = new Score(0, "Default");
     private int cherryScore = 0;

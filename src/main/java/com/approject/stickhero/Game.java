@@ -5,9 +5,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
-public class Game extends Application {
+public class Game extends Application implements Serializable {
     private Player player = null;
     private Stage mainWindow = new Stage();
     private MainGame mainGame = new MainGame();
