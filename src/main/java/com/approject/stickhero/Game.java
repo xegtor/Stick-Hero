@@ -29,6 +29,7 @@ public class Game extends Application {
 
         Scene scene = new Scene(root);
         mainWindow.setTitle("Stick Hero");
+        mainWindow.setResizable(false);
         mainWindow.setScene(scene);
         mainWindow.show();
     }
@@ -49,7 +50,9 @@ public class Game extends Application {
     public void setPlayerName(String name) {
         this.player = new Player(name);
     }
-
+    public void restart() throws IOException {
+        start(mainWindow);
+    }
     public String getPlayerName() {
         return this.player.getName();
     }

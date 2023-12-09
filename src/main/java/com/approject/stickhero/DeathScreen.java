@@ -1,9 +1,11 @@
 package com.approject.stickhero;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -36,7 +38,11 @@ public class DeathScreen {
         isReviving = true;
     }
     @FXML
-    private void home(MouseEvent event) throws IOException{}
+    private void home(MouseEvent event) throws IOException{
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+        myGame.restart();
+    }
 
     public void setGame(Game game){
         this.myGame = game;
