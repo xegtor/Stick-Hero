@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class Game extends Application {
     private Player player = null;
@@ -27,7 +28,12 @@ public class Game extends Application {
 
     public void launch() {
         mainWindow.close();
+        mainGame.setMyGame(this);
         mainGame.start(this.mainWindow);
+    }
+    public void continueGame() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(3);
+        mainGame.revived();
     }
 
     public void setMap(String map){

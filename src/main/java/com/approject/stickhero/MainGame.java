@@ -3,6 +3,8 @@ package com.approject.stickhero;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -23,14 +25,15 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class MainGame extends Application {
+    private Game myGame;
     private Score highScore = new Score(0, "Default");
     private int cherryScore = 0;
     private Score currentScore = new Score(0, "Default");
     Stage stage = new Stage();
     Pane root;
-
     private final Random random = new Random();
     private Rectangle stick;
     private Rectangle rectangle1 = null;
@@ -159,7 +162,7 @@ public class MainGame extends Application {
     }
 
     private void handleMousePressed(MouseEvent event) {
-        if (rotated || isMoving || sceneTransition || pause){
+        if (rotated || isMoving || sceneTransition || pause || !isAlive){
             return;
         }
         extendTimelineHeight = new Timeline(
@@ -173,7 +176,7 @@ public class MainGame extends Application {
     }
 
     private void handleMouseReleased(MouseEvent event) {
-        if (isMoving || sceneTransition || pause){
+        if (isMoving || sceneTransition || pause || !isAlive){
             return;
         }
 
@@ -256,7 +259,7 @@ public class MainGame extends Application {
     }
 
     private void handleMouseClicked(MouseEvent event){
-        if (!isMoving || sceneTransition || pause){
+        if (!isMoving || sceneTransition || pause || !isAlive){
             return;
         }
         if (isFlipped==0){
@@ -274,7 +277,7 @@ public class MainGame extends Application {
         }
     }
     private void handlePauseResume(KeyEvent event){
-        if (sceneTransition){
+        if (sceneTransition || !isAlive){
             return;
         }
         if (!pause){
@@ -300,10 +303,16 @@ public class MainGame extends Application {
     }
     public void gameOver() throws IOException {
         MediaPlayer mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(getClass().getResource("youDied.mp3").toString()));
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("deathScreen.fxml")), 392, 650);
 
-        stage.setScene(scene);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("deathScreen.fxml"));
+        Parent deathScreen = loader.load();
+
+        DeathScreen deathScreenController = loader.getController();
+        deathScreenController.setGame(myGame);
+
+        stage.setScene(new Scene(deathScreen));
         stage.show();
+
         mediaPlayer.play();
     }
     public void gameContinue(){
@@ -328,7 +337,9 @@ public class MainGame extends Application {
         playerTransition.play();
 
         moveTransition.setOnFinished(event -> {
-            if (!isAlive){return;}
+            if (!isAlive){
+                return;
+            }
             root = createContent();
             Scene scene = new Scene(root, 392, 650);
             stage.setScene(scene);
@@ -337,5 +348,21 @@ public class MainGame extends Application {
             root.setFocusTraversable(true);
             root.requestFocus();
         });
+    }
+    public void revived() throws InterruptedException {
+        root = createContent();
+        Scene scene = new Scene(root, 392, 650);
+        stage.setScene(scene);
+        stage.show();
+
+        root.setFocusTraversable(true);
+        root.requestFocus();
+        isAlive = true;
+    }
+    public Game getMyGame() {
+        return myGame;
+    }
+    public void setMyGame(Game myGame) {
+        this.myGame = myGame;
     }
 }
