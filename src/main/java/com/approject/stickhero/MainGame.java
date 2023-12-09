@@ -84,8 +84,8 @@ public class MainGame extends Application {
         Pane anchorPane = new AnchorPane();
 
         ImageView background = new ImageView(new Image(getClass().getResourceAsStream(map)));
-        background.setX((double) - 392/2);
-        background.setY((double) - 650/2);
+        background.setFitHeight(650);
+        background.setFitWidth(392);
         anchorPane.getChildren().add(background);
 
         if (rectangle2==null){
@@ -322,7 +322,7 @@ public class MainGame extends Application {
         }
     }
     public void gameOver() throws IOException {
-        mediaPlayer.stop();
+        mediaPlayer.pause();
         stage.close();
         MediaPlayer mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(getClass().getResource("youDied.mp3").toString()));
 
@@ -372,6 +372,7 @@ public class MainGame extends Application {
         });
     }
     public void revived() throws InterruptedException {
+        mediaPlayer.play();
         root = createContent();
         Scene scene = new Scene(root, 392, 650);
         stage.setScene(scene);

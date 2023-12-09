@@ -12,8 +12,6 @@ public class DeathScreen {
     private boolean isReviving = false;
     @FXML
     private void revive(MouseEvent event) throws IOException{
-        MediaPlayer mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(getClass().getResource("revive2.mp3").toString()));
-        mediaPlayer.play();
         if (isReviving) {
             return;
         }
@@ -28,6 +26,8 @@ public class DeathScreen {
         }
         System.out.println("Reviving");
         try{
+            MediaPlayer mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(getClass().getResource("revive2.mp3").toString()));
+            mediaPlayer.play();
             myGame.continueGame();
         }
         catch (InterruptedException e){
