@@ -1,6 +1,6 @@
 package com.approject.stickhero;
 
-public class Score {
+public class Score implements java.io.Serializable{
     private int score;
     private final String name;
 
