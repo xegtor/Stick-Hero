@@ -83,9 +83,9 @@ public class MainGame extends Application implements Serializable {
         root.requestFocus();
     }
 
-    private Pane createContent() {
-        System.out.println("High Score: " + highScore);
-        System.out.println("Player: " + player.getName());
+    public Pane createContent() throws IOException {
+        player.setGameState(this);
+        Player.saveGame(this);
         Pane anchorPane = new AnchorPane();
 
         ImageView background = new ImageView(new Image(getClass().getResourceAsStream(map)));
@@ -167,7 +167,7 @@ public class MainGame extends Application implements Serializable {
         return anchorPane;
     }
 
-    private Rectangle createRandomRectangle() {
+    public Rectangle createRandomRectangle() {
         double width = random.nextInt(50) + 25;
         double height = 150.0;
         double x = random.nextInt(50);
@@ -390,6 +390,9 @@ public class MainGame extends Application implements Serializable {
         });
     }
     public void revived() throws InterruptedException {
+        if (cherrySpawn && cherryCollected){
+            root.getChildren().remove(cherry);
+        }
         mediaPlayer.play();
         root = createContent();
         Scene scene = new Scene(root, 392, 650);
