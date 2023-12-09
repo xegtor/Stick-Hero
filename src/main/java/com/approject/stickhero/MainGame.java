@@ -83,9 +83,7 @@ public class MainGame extends Application implements Serializable {
         root.requestFocus();
     }
 
-    public Pane createContent() throws IOException {
-        player.setGameState(this);
-        Player.saveGame(this);
+    private Pane createContent() {
         Pane anchorPane = new AnchorPane();
 
         ImageView background = new ImageView(new Image(getClass().getResourceAsStream(map)));
@@ -167,7 +165,7 @@ public class MainGame extends Application implements Serializable {
         return anchorPane;
     }
 
-    public Rectangle createRandomRectangle() {
+    private Rectangle createRandomRectangle() {
         double width = random.nextInt(50) + 25;
         double height = 150.0;
         double x = random.nextInt(50);
@@ -260,7 +258,7 @@ public class MainGame extends Application implements Serializable {
             @Override
             public void handle(long now) {
                 if (sprite.getBoundsInParent().intersects(cherry.getBoundsInParent()) && !cherryCollected && sprite.getY()==cherry.getY()) {
-                    System.out.println("Cherry detected!");
+//                    System.out.println("Cherry detected!");
                     cherryScore++;
                     cherryCollected = true;
                     root.getChildren().remove(cherry);
@@ -276,7 +274,7 @@ public class MainGame extends Application implements Serializable {
             @Override
             public void handle(long now) {
                 if (sprite.getBoundsInParent().intersects(rectangle2.getBoundsInParent()) && isAlive && isFlipped%2==0){
-                    System.out.println("Pillar detected!");
+//                    System.out.println("Pillar detected!");
                     isAlive = false;
                     try {
                         gameOver();
