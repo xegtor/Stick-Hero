@@ -50,17 +50,21 @@ public class MainGame extends Application implements Serializable {
     private boolean rotated = false;
     private Movable inMotion = null;
     private Boolean cherrySpawn = false;
+    private Boolean witherSpawn = false;
     private Boolean pause = false;
     private Boolean sceneTransition = false;
     private String map = "mountain.jpg";
     private ImageView sprite;
     private ImageView cherry;
+    private ImageView wither;
     private ImageView pauseScreen;
     private Boolean cherryCollected = false;
+    private Boolean witherCollected = false;
     private Boolean isAlive = true;
     private Vector<String> music = new Vector<>();
     private MediaPlayer mediaPlayer;
     private MediaPlayer cherrySound;
+    private MediaPlayer witherSound;
 
     @Override
     public void start(Stage primaryStage) {
@@ -73,6 +77,7 @@ public class MainGame extends Application implements Serializable {
         int randomMusic = random.nextInt(5);
         mediaPlayer = new MediaPlayer(new Media(getClass().getResource(music.get(randomMusic)).toString()));
         cherrySound = new MediaPlayer(new Media(getClass().getResource("nom-nom.mp3").toString()));
+        witherSound = new MediaPlayer(new Media(getClass().getResource("wither2.mp3").toString()));
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
 
@@ -155,6 +160,18 @@ public class MainGame extends Application implements Serializable {
             else cherry.setY(510 - 30);
             anchorPane.getChildren().add(cherry);
         }
+        else{
+            witherSpawn = random.nextBoolean();
+            if (witherSpawn){
+                wither = new ImageView(new Image(getClass().getResourceAsStream("wither.png")));
+                wither.setFitHeight(30);
+                wither.setFitWidth(30);
+                wither.setX(rectangle1.getX() + rectangle1.getWidth()+random.nextInt((int) distance - 30));
+                if (random.nextBoolean()) wither.setY(510);
+                else wither.setY(510 - 30);
+                anchorPane.getChildren().add(wither);
+            }
+        }
 
         rotated = false;
         inMotion = new isStationary();
@@ -232,7 +249,11 @@ public class MainGame extends Application implements Serializable {
         inMotion = new isMoving();
         if (cherrySpawn){
             cherryCollected = false;
-            checkCollisions();
+            checkCherryCollisions();
+        }
+        if (witherSpawn){
+            witherCollected = false;
+            checkWitherCollisions();
         }
         checkPillarCollision();
         translateTransition.play();
@@ -260,7 +281,7 @@ public class MainGame extends Application implements Serializable {
             }
         });
     }
-    private void checkCollisions() {
+    private void checkCherryCollisions() {
         javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -278,7 +299,25 @@ public class MainGame extends Application implements Serializable {
         };
         timer.start();
     }
+    private void checkWitherCollisions() {
+        javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                if (sprite.getBoundsInParent().intersects(wither.getBoundsInParent()) && !witherCollected && sprite.getY()==wither.getY()) {
+//                    System.out.println("Wither detected!");
+                    witherSound.stop();
+                    witherSound.seek(Duration.ZERO);
+                    witherSound.setVolume(10);
 
+                    witherSound.play();
+                    if (cherryScore>0) cherryScore--;
+                    witherCollected = true;
+                    root.getChildren().remove(wither);
+                }
+            }
+        };
+        timer.start();
+    }
     private void checkPillarCollision(){
         javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
             @Override
@@ -373,6 +412,11 @@ public class MainGame extends Application implements Serializable {
             TranslateTransition cherryTransition = new TranslateTransition(Duration.seconds(3), cherry);
             cherryTransition.setByX(-distance-rectangle1.getWidth());
             cherryTransition.play();
+        }
+        if (witherSpawn && !witherCollected){
+            TranslateTransition witherTransition = new TranslateTransition(Duration.seconds(3), wither);
+            witherTransition.setByX(-distance-rectangle1.getWidth());
+            witherTransition.play();
         }
         deleteTransition.setByX(-distance-rectangle1.getWidth());
         moveTransition.setByX(-distance-rectangle1.getWidth());
