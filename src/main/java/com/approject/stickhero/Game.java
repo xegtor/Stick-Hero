@@ -20,6 +20,7 @@ public class Game extends Application implements Serializable {
     public void start(Stage stage) throws IOException {
         try{
             Player.loadScores();
+            Player.loadGame();
         }
         catch (IOException e){
             System.out.println("Can't load game");
@@ -44,10 +45,28 @@ public class Game extends Application implements Serializable {
     }
 
     public void launch() {
-        mainWindow.close();
-        mainGame.setMyGame(this);
-        mainGame.setPlayer(this.player);
-        mainGame.start(this.mainWindow);
+        if (Player.getSaveFile(player.getName()) == null) {
+            mainWindow.close();
+            mainGame.setMyGame(this);
+            mainGame.setPlayer(this.player);
+            mainGame.start(this.mainWindow);
+        }
+        else {
+            SaveFile save = Player.getSaveFile(player.getName());
+            mainGame.setSaveFile(save);
+            mainGame.setPlayer(player);
+            mainGame.setMusicName(save.getMusicName());
+            mainGame.setMap(save.getMap());
+            mainGame.setCherry(save.getCherryScore());
+            mainGame.setScore(save.getCurrentScore());
+            mainGame.setRectangleFirst(save.getRectangleFirst());
+            mainGame.setRectangleSecond(save.getRectangleSecond());
+            mainGame.setCherryImage(save.getCherry());
+            mainGame.setPlayerImage(save.getPlayer());
+
+            mainGame.loadSave();
+        }
+
     }
     public void continueGame() throws InterruptedException {
         TimeUnit.SECONDS.sleep(3);
@@ -81,5 +100,8 @@ public class Game extends Application implements Serializable {
         }
         System.out.println(result.wasSuccessful());
         launch(args);
+    }
+    public void deleteSaveFile() {
+        mainGame.deleteSaveFile();
     }
 }

@@ -59,9 +59,10 @@ public class MainGame extends Application implements Serializable {
     private Boolean cherryCollected = false;
     private Boolean isAlive = true;
     private Vector<String> music = new Vector<>();
+    private String musicName;
     private MediaPlayer mediaPlayer;
     private MediaPlayer cherrySound;
-
+    private SaveFile save;
     @Override
     public void start(Stage primaryStage) {
         music.add("BackOnTrack.mp3");
@@ -71,7 +72,9 @@ public class MainGame extends Application implements Serializable {
         music.add("Electrodynamix.mp3");
 
         int randomMusic = random.nextInt(5);
-        mediaPlayer = new MediaPlayer(new Media(getClass().getResource(music.get(randomMusic)).toString()));
+        musicName = music.get(randomMusic);
+
+        mediaPlayer = new MediaPlayer(new Media(getClass().getResource(musicName).toString()));
         cherrySound = new MediaPlayer(new Media(getClass().getResource("nom-nom.mp3").toString()));
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
@@ -322,6 +325,13 @@ public class MainGame extends Application implements Serializable {
         }
     }
     private void pause(){
+        save = new SaveFile(musicName, map, player.getName(), currentScore, rectangle1, rectangle2, cherry, sprite, cherryScore);
+        try {
+            Player.saveGame();
+        } catch (IOException e) {
+            System.out.println("Can't save game");
+        }
+
         pauseScreen = new ImageView(new Image(getClass().getResourceAsStream("pause.png")));
         pauseScreen.setFitHeight(200);
         pauseScreen.setFitWidth(200);
@@ -437,5 +447,46 @@ public class MainGame extends Application implements Serializable {
 
     public Boolean getRotated() {
         return rotated;
+    }
+
+    public void deleteSaveFile() {
+        save = null;
+    }
+    public void setSaveFile(SaveFile save){
+        this.save = save;
+    }
+
+    public void setMusicName(String musicName) {
+        mediaPlayer = new MediaPlayer(new Media(getClass().getResource(musicName).toString()));
+    }
+
+    public void setScore(Integer currentScore) {
+        this.currentScore = currentScore;
+    }
+
+    public void setRectangleFirst(Rectangle rectangleFirst) {
+        this.rectangle1 = rectangleFirst;
+    }
+
+    public void setRectangleSecond(Rectangle rectangleSecond) {
+        this.rectangle2 = rectangleSecond;
+    }
+
+    public void setCherryImage(ImageView cherry) {
+        this.cherry = cherry;
+    }
+
+    public void setPlayerImage(ImageView player) {
+        this.sprite = player;
+    }
+
+    public void loadSave(){
+        root = createContent();
+        Scene scene = new Scene(root, 392, 650);
+        stage.setScene(scene);
+        stage.show();
+
+        root.setFocusTraversable(true);
+        root.requestFocus();
     }
 }

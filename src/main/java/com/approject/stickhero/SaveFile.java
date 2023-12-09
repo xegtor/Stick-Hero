@@ -5,7 +5,7 @@ import javafx.scene.shape.Rectangle;
 import java.io.*;
 public class SaveFile implements Serializable{
     private String musicName;
-    private ImageView map;
+    private String map;
     private String playerName;
     private Integer currentScore;
     private Rectangle rectangleFirst;
@@ -13,7 +13,7 @@ public class SaveFile implements Serializable{
     private ImageView cherry;
     private ImageView player;
     private int cherryScore;
-    public SaveFile(String musicName, ImageView map, String playerName, int currentScore, Rectangle rectangleFirst, Rectangle rectangleSecond, ImageView cherry, ImageView player, int cherryScore){
+    public SaveFile(String musicName, String map, String playerName, int currentScore, Rectangle rectangleFirst, Rectangle rectangleSecond, ImageView cherry, ImageView player, int cherryScore){
         this.musicName = musicName;
         this.map = map;
         this.playerName = playerName;
@@ -33,15 +33,15 @@ public class SaveFile implements Serializable{
         this.musicName = musicName;
     }
 
-    public ImageView getMap() {
+    public String getMap() {
         return map;
     }
 
-    public void setMap(ImageView map) {
+    public void setMap(String map) {
         this.map = map;
     }
 
-    public String getPlayerName() {
+    public String getName() {
         return playerName;
     }
 
