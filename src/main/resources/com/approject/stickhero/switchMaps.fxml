@@ -23,7 +23,7 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#240040" height="47.0" layoutX="123.0" layoutY="589.0" onMouseClicked="#start" stroke="BLACK" strokeType="INSIDE" width="146.0" />
-      <Text fill="WHITE" layoutX="146.0" layoutY="622.0" strokeType="OUTSIDE" strokeWidth="0.0" text="START">
+      <Text fill="WHITE" layoutX="150.0" layoutY="622.0" strokeType="OUTSIDE" strokeWidth="0.0" text="START">
          <font>
             <Font name="Times New Roman" size="30.0" />
          </font>

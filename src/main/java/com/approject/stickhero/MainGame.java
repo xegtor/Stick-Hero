@@ -34,8 +34,8 @@ public class MainGame extends Application implements Serializable {
     private int highScore = player.getScore();
     private int cherryScore = 0;
     private int currentScore = 0;
-    Stage stage = new Stage();
-    Pane root;
+    private Stage stage = new Stage();
+    private Pane root;
     private final Random random = new Random();
     private Rectangle stick;
     private Rectangle rectangle1 = null;
@@ -46,7 +46,7 @@ public class MainGame extends Application implements Serializable {
     private TranslateTransition translateTransition;
     private int isFlipped = 0;
     private boolean rotated = false;
-    private boolean isMoving = false;
+    private Movable inMotion = null;
     private Boolean cherrySpawn = false;
     private Boolean pause = false;
     private Boolean sceneTransition = false;
@@ -58,6 +58,7 @@ public class MainGame extends Application implements Serializable {
     private Boolean isAlive = true;
     private Vector<String> music = new Vector<>();
     private MediaPlayer mediaPlayer;
+    private MediaPlayer cherrySound = new MediaPlayer(new javafx.scene.media.Media(getClass().getResource("cherryEat.mp3").toString()));
 
     @Override
     public void start(Stage primaryStage) {
@@ -150,7 +151,7 @@ public class MainGame extends Application implements Serializable {
         }
 
         rotated = false;
-        isMoving = false;
+        inMotion = new isStationary();
         isFlipped = 0;
         isAlive = true;
         sceneTransition = false;
@@ -186,7 +187,7 @@ public class MainGame extends Application implements Serializable {
     }
 
     private void handleMousePressed(MouseEvent event) {
-        if (rotated || isMoving || sceneTransition || pause || !isAlive){
+        if (rotated || inMotion.move() || sceneTransition || pause || !isAlive){
             return;
         }
         extendTimelineHeight = new Timeline(
@@ -200,7 +201,7 @@ public class MainGame extends Application implements Serializable {
     }
 
     private void handleMouseReleased(MouseEvent event) {
-        if (isMoving || sceneTransition || pause || !isAlive){
+        if (inMotion.move() || sceneTransition || pause || !isAlive){
             return;
         }
 
@@ -222,7 +223,7 @@ public class MainGame extends Application implements Serializable {
 
         translateTransition = new TranslateTransition(Duration.seconds(2), sprite);
         translateTransition.setByX(stick.getHeight() + 15);
-        isMoving = true;
+        inMotion = new isMoving();
         if (cherrySpawn){
             cherryCollected = false;
             checkCollisions();
@@ -259,6 +260,7 @@ public class MainGame extends Application implements Serializable {
             public void handle(long now) {
                 if (sprite.getBoundsInParent().intersects(cherry.getBoundsInParent()) && !cherryCollected && sprite.getY()==cherry.getY()) {
 //                    System.out.println("Cherry detected!");
+                    cherrySound.play();
                     cherryScore++;
                     cherryCollected = true;
                     root.getChildren().remove(cherry);
@@ -289,7 +291,7 @@ public class MainGame extends Application implements Serializable {
     }
 
     private void handleMouseClicked(MouseEvent event){
-        if (!isMoving || sceneTransition || pause || !isAlive){
+        if (!inMotion.move() || sceneTransition || pause || !isAlive){
             return;
         }
         if (isFlipped==0){
@@ -326,14 +328,14 @@ public class MainGame extends Application implements Serializable {
 
         root.getChildren().add(pauseScreen);
         pause = true;
-        if (isMoving) {
+        if (inMotion.move()) {
             translateTransition.pause();
         }
     }
     private void resume(){
         root.getChildren().remove(pauseScreen);
         pause = false;
-        if (isMoving) {
+        if (inMotion.move()) {
             translateTransition.play();
         }
     }
