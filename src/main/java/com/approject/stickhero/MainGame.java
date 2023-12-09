@@ -115,6 +115,13 @@ public class MainGame extends Application {
         AnchorPane.setLeftAnchor(highScoreLabel, 20.0);
         anchorPane.getChildren().add(highScoreLabel);
 
+        Label cherryScoreLabel = new Label("Cherries Collected: " + cherryScore);
+        cherryScoreLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        cherryScoreLabel.setStyle("-fx-background-color: rgba(255, 255, 255, 0);");
+        AnchorPane.setTopAnchor(cherryScoreLabel, 20.0);
+        AnchorPane.setLeftAnchor(cherryScoreLabel, 135.0);
+        anchorPane.getChildren().add(cherryScoreLabel);
+
         cherrySpawn = random.nextBoolean();
         if (cherrySpawn){
             cherry = new ImageView(new Image(getClass().getResourceAsStream("cherry.png")));
