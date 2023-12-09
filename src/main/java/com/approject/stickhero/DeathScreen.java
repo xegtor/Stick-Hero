@@ -39,7 +39,6 @@ public class DeathScreen {
     }
     @FXML
     private void home(MouseEvent event) throws IOException{
-        myGame.deleteSaveFile();
         myGame.reset();
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
