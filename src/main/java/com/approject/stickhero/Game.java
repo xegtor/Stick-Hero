@@ -19,6 +19,7 @@ public class Game extends Application implements Serializable {
     private MainGame mainGame = null;
     private Player player = null;
     private static boolean passed = true;
+    private static boolean showOnce = false;
     @Override
     public void start(Stage stage) throws IOException {
         try{
@@ -31,11 +32,14 @@ public class Game extends Application implements Serializable {
             System.out.println("Class not found");
         }
 
-        if (passed) {
-            showSuccessAlert();
-        } else {
-            showFailureAlert("Some tests have failed!");
-            exit();
+        if (!showOnce) {
+            showOnce = true;
+            if (passed) {
+                showSuccessAlert();
+            } else {
+                showFailureAlert("Some tests have failed!");
+                exit();
+            }
         }
         this.player = Player.getPlayerScore("Default");
         this.mainGame = new MainGame();
