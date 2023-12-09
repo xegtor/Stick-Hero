@@ -395,4 +395,16 @@ public class MainGame extends Application {
     public void setCherry(int cherry) {
         this.cherryScore = cherry;
     }
+    public void setHighScore(Score highScore) {
+        this.highScore = highScore;
+    }
+    public Score getHighScore() {
+        return highScore;
+    }
+    public Score getScore() {
+        return currentScore;
+    }
+    public void setScore(Score score) {
+        this.currentScore = score;
+    }
 }
