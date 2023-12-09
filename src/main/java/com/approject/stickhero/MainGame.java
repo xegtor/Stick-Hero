@@ -23,11 +23,13 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Random;
 import java.util.Vector;
 
 public class MainGame extends Application implements Serializable {
+    @Serial
     private static final long serialVersionUID = 100L;
     private Game myGame;
     private Player player = Player.getPlayerScore("Default");
@@ -58,7 +60,7 @@ public class MainGame extends Application implements Serializable {
     private Boolean isAlive = true;
     private Vector<String> music = new Vector<>();
     private MediaPlayer mediaPlayer;
-    private MediaPlayer cherrySound = new MediaPlayer(new javafx.scene.media.Media(getClass().getResource("cherryEat.mp3").toString()));
+    private MediaPlayer cherrySound;
 
     @Override
     public void start(Stage primaryStage) {
@@ -70,6 +72,7 @@ public class MainGame extends Application implements Serializable {
 
         int randomMusic = random.nextInt(5);
         mediaPlayer = new MediaPlayer(new Media(getClass().getResource(music.get(randomMusic)).toString()));
+        cherrySound = new MediaPlayer(new Media(getClass().getResource("nom-nom.mp3").toString()));
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
 
@@ -267,7 +270,6 @@ public class MainGame extends Application implements Serializable {
                 }
             }
         };
-
         timer.start();
     }
 
@@ -428,6 +430,9 @@ public class MainGame extends Application implements Serializable {
 
     public Boolean getAlive() {
         return isAlive;
+    }
+    public Boolean getIsMoving() {
+        return inMotion.move();
     }
 
     public Boolean getRotated() {
