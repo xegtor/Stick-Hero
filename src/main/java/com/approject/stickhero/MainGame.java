@@ -53,6 +53,7 @@ public class MainGame extends Application implements Serializable {
     private String map = "mountain.jpg";
     private ImageView sprite;
     private ImageView cherry;
+    private ImageView pauseScreen;
     private Boolean cherryCollected = false;
     private Boolean isAlive = true;
     private Vector<String> music = new Vector<>();
@@ -83,14 +84,8 @@ public class MainGame extends Application implements Serializable {
     }
 
     private Pane createContent() {
-        try{
-            player.setScore(highScore);
-            Player.saveGame();
-        }
-        catch (IOException e){
-            System.out.println("Can't save");
-        }
-
+        System.out.println("High Score: " + highScore);
+        System.out.println("Player: " + player.getName());
         Pane anchorPane = new AnchorPane();
 
         ImageView background = new ImageView(new Image(getClass().getResourceAsStream(map)));
@@ -238,6 +233,12 @@ public class MainGame extends Application implements Serializable {
         translateTransition.play();
 
         translateTransition.setOnFinished(gameState -> {
+            try {
+                player.setScore(highScore);
+                Player.saveScores();
+            } catch (IOException e) {
+                System.out.println("Can't save game");
+            }
             if (stick.getHeight() < rectangle2.getX() - rectangle1.getX() - rectangle1.getWidth() || stick.getHeight() > rectangle2.getX() + rectangle2.getWidth() - rectangle1.getX() - rectangle1.getWidth()){
                 try {
                     gameOver();
@@ -247,7 +248,7 @@ public class MainGame extends Application implements Serializable {
             }
             else{
                 currentScore++;
-                if (currentScore > highScore){
+                if (currentScore>highScore){
                     highScore = currentScore;
                 }
                 gameContinue();
@@ -319,21 +320,26 @@ public class MainGame extends Application implements Serializable {
         }
     }
     private void pause(){
-        System.out.println("Paused");
+        pauseScreen = new ImageView(new Image(getClass().getResourceAsStream("pause.png")));
+        pauseScreen.setFitHeight(200);
+        pauseScreen.setFitWidth(200);
+        pauseScreen.setX(392/2 - 100);
+        pauseScreen.setY(200);
+
+        root.getChildren().add(pauseScreen);
         pause = true;
         if (isMoving) {
             translateTransition.pause();
         }
     }
     private void resume(){
-        System.out.println("Resumed");
+        root.getChildren().remove(pauseScreen);
         pause = false;
         if (isMoving) {
             translateTransition.play();
         }
     }
     public void gameOver() throws IOException {
-        player.setScore(highScore);
         mediaPlayer.pause();
         stage.close();
         MediaPlayer mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(getClass().getResource("youDied.mp3").toString()));
@@ -406,8 +412,10 @@ public class MainGame extends Application implements Serializable {
     public void setCherry(int cherry) {
         this.cherryScore = cherry;
     }
-
-    public void setScore(Player player) {
+    public Player getPlayer(){
+        return this.player;
+    }
+    public void setPlayer(Player player) {
         this.player = player;
         this.highScore = player.getScore();
     }

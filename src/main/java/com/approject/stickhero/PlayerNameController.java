@@ -13,7 +13,7 @@ public class PlayerNameController {
 
     @FXML
     private TextField playerNameField;
-    private String playerName = "NPC";
+    private String playerName = "Default";
     private Game myGame;
     private Stage stage;
     public void setStage(Stage stage){

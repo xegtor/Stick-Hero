@@ -10,19 +10,13 @@ import java.util.concurrent.TimeUnit;
 
 public class Game extends Application implements Serializable {
     private Stage mainWindow = new Stage();
-    private MainGame mainGame = new MainGame();
-    private Player player = Player.getPlayerScore("Default");
-    public int getCherry() {
-        return mainGame.getCherry();
-    }
-    public void setCherry(int cherry) {
-        mainGame.setCherry(cherry);
-    }
+    private MainGame mainGame = null;
+    private Player player = null;
 
     @Override
     public void start(Stage stage) throws IOException {
         try{
-            Player.loadGame();
+            Player.loadScores();
         }
         catch (IOException e){
             System.out.println("Can't load game");
@@ -30,6 +24,9 @@ public class Game extends Application implements Serializable {
         catch (ClassNotFoundException e){
             System.out.println("Class not found");
         }
+        this.player = Player.getPlayerScore("Default");
+        this.mainGame = new MainGame();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("splashTest.fxml"));
         Parent root = loader.load();
 
@@ -46,14 +43,19 @@ public class Game extends Application implements Serializable {
     public void launch() {
         mainWindow.close();
         mainGame.setMyGame(this);
-        mainGame.setScore(this.player);
+        mainGame.setPlayer(this.player);
         mainGame.start(this.mainWindow);
     }
     public void continueGame() throws InterruptedException {
         TimeUnit.SECONDS.sleep(3);
         mainGame.revived();
     }
-
+    public int getCherry() {
+        return mainGame.getCherry();
+    }
+    public void setCherry(int cherry) {
+        mainGame.setCherry(cherry);
+    }
     public void setMap(String map){
         mainGame.setMap(map);
     }

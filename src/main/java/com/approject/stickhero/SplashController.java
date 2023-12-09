@@ -29,9 +29,6 @@ public class SplashController {
         playerNameInputDialog.setScene(new Scene(playerNameInputRoot));
         playerNameInputDialog.showAndWait();
 
-        String playerName = playerNameInputController.getPlayerName();
-        myGame.setPlayerName(playerName);
-
         FXMLLoader loader2 = new FXMLLoader(getClass().getResource("switchMaps.fxml"));
         Parent switchMap = loader2.load();
 
