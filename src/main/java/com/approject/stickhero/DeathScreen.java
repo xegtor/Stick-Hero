@@ -26,9 +26,8 @@ public class DeathScreen {
         else{
             myGame.setCherry(myGame.getCherry() - 2);
         }
-        System.out.println("Reviving");
         try{
-            MediaPlayer mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(getClass().getResource("revive2.mp3").toString()));
+            MediaPlayer mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(getClass().getResource("revive.mp3").toString()));
             mediaPlayer.play();
             myGame.continueGame();
         }

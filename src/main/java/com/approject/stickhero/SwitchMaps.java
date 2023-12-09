@@ -58,7 +58,7 @@ public class SwitchMaps {
             maps.add("bliss.jpg");
         }
         myGame.setMap(maps.get(currentMap));
-        myGame.launch();
+        myGame.runMainGame();
     }
 
     public void setGame(Game game) {

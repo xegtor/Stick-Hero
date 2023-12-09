@@ -266,6 +266,9 @@ public class MainGame extends Application implements Serializable {
             public void handle(long now) {
                 if (sprite.getBoundsInParent().intersects(cherry.getBoundsInParent()) && !cherryCollected && sprite.getY()==cherry.getY()) {
 //                    System.out.println("Cherry detected!");
+                    cherrySound.stop();
+                    cherrySound.seek(Duration.ZERO);
+
                     cherrySound.play();
                     cherryScore++;
                     cherryCollected = true;
