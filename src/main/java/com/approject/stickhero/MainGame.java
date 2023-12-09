@@ -73,8 +73,9 @@ public class MainGame extends Application implements Serializable {
         music.add("StereoMadness.mp3");
         music.add("Jumper.mp3");
         music.add("Electrodynamix.mp3");
+        music.add("madeInAbyss.mp3");
 
-        int randomMusic = random.nextInt(5);
+        int randomMusic = random.nextInt(6);
         mediaPlayer = new MediaPlayer(new Media(getClass().getResource(music.get(randomMusic)).toString()));
         cherrySound = new MediaPlayer(new Media(getClass().getResource("nom-nom.mp3").toString()));
         witherSound = new MediaPlayer(new Media(getClass().getResource("wither2.mp3").toString()));
