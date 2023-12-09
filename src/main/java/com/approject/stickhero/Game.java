@@ -9,10 +9,9 @@ import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 public class Game extends Application implements Serializable {
-    private Player player = null;
     private Stage mainWindow = new Stage();
     private MainGame mainGame = new MainGame();
-
+    private Player player = Player.getPlayerScore("Default");
     public int getCherry() {
         return mainGame.getCherry();
     }
@@ -38,6 +37,7 @@ public class Game extends Application implements Serializable {
     public void launch() {
         mainWindow.close();
         mainGame.setMyGame(this);
+        mainGame.setScore(this.player);
         mainGame.start(this.mainWindow);
     }
     public void continueGame() throws InterruptedException {
@@ -49,7 +49,7 @@ public class Game extends Application implements Serializable {
         mainGame.setMap(map);
     }
     public void setPlayerName(String name) {
-        this.player = new Player(name);
+        this.player = Player.getPlayerScore(name);
     }
     public void restart() throws IOException {
         start(mainWindow);

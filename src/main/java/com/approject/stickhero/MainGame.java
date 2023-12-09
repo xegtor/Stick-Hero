@@ -30,9 +30,10 @@ import java.util.Vector;
 public class MainGame extends Application implements Serializable {
     private static final long serialVersionUID = 100L;
     private Game myGame;
-    private Score highScore = new Score(0, "Default");
+    private Player player;
+    private int highScore = 0;
     private int cherryScore = 0;
-    private Score currentScore = new Score(0, "Default");
+    private int currentScore = 0;
     Stage stage = new Stage();
     Pane root;
     private final Random random = new Random();
@@ -50,7 +51,7 @@ public class MainGame extends Application implements Serializable {
     private Boolean pause = false;
     private Boolean sceneTransition = false;
     private String map = "mountain.jpg";
-    private ImageView player;
+    private ImageView sprite;
     private ImageView cherry;
     private Boolean cherryCollected = false;
     private Boolean isAlive = true;
@@ -97,12 +98,12 @@ public class MainGame extends Application implements Serializable {
         }
         rectangle2 = createRandomRectangle();
 
-        player = new ImageView(new Image(getClass().getResourceAsStream("sprite.png")));
-        player.setFitHeight(30);
-        player.setFitWidth(30);
-        player.setX(rectangle1.getX() + rectangle1.getWidth() - 30);
-        player.setY(rectangle1.getY()-player.getFitHeight());
-        anchorPane.getChildren().add(player);
+        sprite = new ImageView(new Image(getClass().getResourceAsStream("sprite.png")));
+        sprite.setFitHeight(30);
+        sprite.setFitWidth(30);
+        sprite.setX(rectangle1.getX() + rectangle1.getWidth() - 30);
+        sprite.setY(rectangle1.getY()- sprite.getFitHeight());
+        anchorPane.getChildren().add(sprite);
 
         distance = random.nextInt(150) + 50;
         rectangle2.setX(rectangle1.getX() + rectangle1.getWidth() + distance);
@@ -115,14 +116,14 @@ public class MainGame extends Application implements Serializable {
 
         anchorPane.getChildren().add(stick);
 
-        Label score = new Label("Score: " + currentScore.getScore());
+        Label score = new Label("Score: " + currentScore);
         score.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         score.setStyle("-fx-background-color: rgba(255, 255, 255, 0);");
         AnchorPane.setTopAnchor(score, 20.0);
         AnchorPane.setRightAnchor(score, 20.0);
         anchorPane.getChildren().add(score);
 
-        Label highScoreLabel = new Label("High Score: " + highScore.getScore());
+        Label highScoreLabel = new Label("High Score: " + highScore);
         highScoreLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         highScoreLabel.setStyle("-fx-background-color: rgba(255, 255, 255, 0);");
         AnchorPane.setTopAnchor(highScoreLabel, 20.0);
@@ -217,7 +218,7 @@ public class MainGame extends Application implements Serializable {
             rotated = true;
         }
 
-        translateTransition = new TranslateTransition(Duration.seconds(2), player);
+        translateTransition = new TranslateTransition(Duration.seconds(2), sprite);
         translateTransition.setByX(stick.getHeight() + 15);
         isMoving = true;
         if (cherrySpawn){
@@ -236,9 +237,9 @@ public class MainGame extends Application implements Serializable {
                 }
             }
             else{
-                currentScore.setScore(currentScore.getScore() + 1);
-                if (currentScore.getScore() > highScore.getScore()){
-                    highScore = currentScore.clone();
+                currentScore++;
+                if (currentScore > highScore){
+                    highScore = currentScore;
                 }
                 gameContinue();
             }
@@ -248,7 +249,7 @@ public class MainGame extends Application implements Serializable {
         javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (player.getBoundsInParent().intersects(cherry.getBoundsInParent()) && !cherryCollected && player.getY()==cherry.getY()) {
+                if (sprite.getBoundsInParent().intersects(cherry.getBoundsInParent()) && !cherryCollected && sprite.getY()==cherry.getY()) {
                     System.out.println("Cherry detected!");
                     cherryScore++;
                     cherryCollected = true;
@@ -264,7 +265,7 @@ public class MainGame extends Application implements Serializable {
         javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (player.getBoundsInParent().intersects(rectangle2.getBoundsInParent()) && isAlive && isFlipped%2==0){
+                if (sprite.getBoundsInParent().intersects(rectangle2.getBoundsInParent()) && isAlive && isFlipped%2==0){
                     System.out.println("Pillar detected!");
                     isAlive = false;
                     try {
@@ -287,13 +288,13 @@ public class MainGame extends Application implements Serializable {
             isFlipped++;
         }
         else if (!(isFlipped%2==0)){
-            player.setScaleY(-1);
-            player.setY(player.getY()+player.getFitHeight());
+            sprite.setScaleY(-1);
+            sprite.setY(sprite.getY()+ sprite.getFitHeight());
             isFlipped++;
         }
         else{
-            player.setScaleY(1);
-            player.setY(player.getY()-player.getFitHeight());
+            sprite.setScaleY(1);
+            sprite.setY(sprite.getY()- sprite.getFitHeight());
             isFlipped++;
         }
     }
@@ -323,6 +324,7 @@ public class MainGame extends Application implements Serializable {
         }
     }
     public void gameOver() throws IOException {
+        player.setScore(highScore);
         mediaPlayer.pause();
         stage.close();
         MediaPlayer mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(getClass().getResource("youDied.mp3").toString()));
@@ -343,7 +345,7 @@ public class MainGame extends Application implements Serializable {
         TranslateTransition deleteTransition = new TranslateTransition(Duration.seconds(3), rectangle1);
         TranslateTransition moveTransition = new TranslateTransition(Duration.seconds(3), rectangle2);
         TranslateTransition stickTransition = new TranslateTransition(Duration.seconds(3), stick);
-        TranslateTransition playerTransition = new TranslateTransition(Duration.seconds(3), player);
+        TranslateTransition playerTransition = new TranslateTransition(Duration.seconds(3), sprite);
         if (cherrySpawn && !cherryCollected){
             TranslateTransition cherryTransition = new TranslateTransition(Duration.seconds(3), cherry);
             cherryTransition.setByX(-distance-rectangle1.getWidth());
@@ -396,16 +398,8 @@ public class MainGame extends Application implements Serializable {
     public void setCherry(int cherry) {
         this.cherryScore = cherry;
     }
-    public void setHighScore(Score highScore) {
-        this.highScore = highScore;
-    }
-    public Score getHighScore() {
-        return highScore;
-    }
-    public Score getScore() {
-        return currentScore;
-    }
-    public void setScore(Score score) {
-        this.currentScore = score;
+
+    public void setScore(Player player) {
+        this.player = player;
     }
 }
