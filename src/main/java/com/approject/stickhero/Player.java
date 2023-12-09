@@ -33,11 +33,11 @@ public class Player implements java.io.Serializable{
     public String getName() {
         return name;
     }
-    public void serialize() throws IOException {
+    public static void saveGame() throws IOException {
         try {
             FileOutputStream fileOut = new FileOutputStream("scoreboard.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(this);
+            out.writeObject(players);
             out.close();
             fileOut.close();
         } catch (IOException i) {
@@ -45,16 +45,16 @@ public class Player implements java.io.Serializable{
         }
     }
 
-    public ScoreBoard deserialize() throws IOException, ClassNotFoundException{
+    public static Vector<Player> loadGame() throws IOException, ClassNotFoundException{
         try{
             FileInputStream fileIn = new FileInputStream("scoreboard.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            ScoreBoard scoreboard = (ScoreBoard) in.readObject();
+            Vector<Player> scoreboard = (Vector<Player>) in.readObject();
             in.close();
             fileIn.close();
             return scoreboard;
         } catch (IOException i) {
-            return new ScoreBoard();
+            return new Vector<Player>();
         } catch (ClassNotFoundException c) {
             System.out.println("ScoreBoard class not found");
             c.printStackTrace();

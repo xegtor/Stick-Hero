@@ -30,8 +30,8 @@ import java.util.Vector;
 public class MainGame extends Application implements Serializable {
     private static final long serialVersionUID = 100L;
     private Game myGame;
-    private Player player;
-    private int highScore = 0;
+    private Player player = Player.getPlayerScore("Default");
+    private int highScore = player.getScore();
     private int cherryScore = 0;
     private int currentScore = 0;
     Stage stage = new Stage();
@@ -83,6 +83,14 @@ public class MainGame extends Application implements Serializable {
     }
 
     private Pane createContent() {
+        try{
+            player.setScore(highScore);
+            Player.saveGame();
+        }
+        catch (IOException e){
+            System.out.println("Can't save");
+        }
+
         Pane anchorPane = new AnchorPane();
 
         ImageView background = new ImageView(new Image(getClass().getResourceAsStream(map)));
@@ -151,6 +159,7 @@ public class MainGame extends Application implements Serializable {
         rotated = false;
         isMoving = false;
         isFlipped = 0;
+        isAlive = true;
         sceneTransition = false;
         pause = false;
 
@@ -383,7 +392,6 @@ public class MainGame extends Application implements Serializable {
 
         root.setFocusTraversable(true);
         root.requestFocus();
-        isAlive = true;
     }
     public Game getMyGame() {
         return myGame;
@@ -401,5 +409,9 @@ public class MainGame extends Application implements Serializable {
 
     public void setScore(Player player) {
         this.player = player;
+        this.highScore = player.getScore();
+    }
+    public void resetScore(){
+        this.currentScore = 0;
     }
 }

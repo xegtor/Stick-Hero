@@ -21,6 +21,15 @@ public class Game extends Application implements Serializable {
 
     @Override
     public void start(Stage stage) throws IOException {
+        try{
+            Player.loadGame();
+        }
+        catch (IOException e){
+            System.out.println("Can't load game");
+        }
+        catch (ClassNotFoundException e){
+            System.out.println("Class not found");
+        }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("splashTest.fxml"));
         Parent root = loader.load();
 
@@ -57,7 +66,9 @@ public class Game extends Application implements Serializable {
     public String getPlayerName() {
         return this.player.getName();
     }
-
+    public void reset() {
+        mainGame.resetScore();
+    }
     public static void main(String[] args) {
         launch(args);
     }
