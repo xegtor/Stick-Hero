@@ -1,6 +1,7 @@
 package com.approject.stickhero;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 
@@ -15,6 +16,15 @@ public class DeathScreen {
         mediaPlayer.play();
         if (isReviving) {
             return;
+        }
+        if(myGame.getCherry() < 2){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("You don't have enough cherry to revive");
+            alert.showAndWait();
+            return;
+        }
+        else{
+            myGame.setCherry(myGame.getCherry() - 2);
         }
         System.out.println("Reviving");
         try{

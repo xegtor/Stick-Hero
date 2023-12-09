@@ -12,6 +12,13 @@ public class Game extends Application {
     private Stage mainWindow = new Stage();
     private MainGame mainGame = new MainGame();
 
+    public int getCherry() {
+        return mainGame.getCherry();
+    }
+    public void setCherry(int cherry) {
+        mainGame.setCherry(cherry);
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("splashTest.fxml"));

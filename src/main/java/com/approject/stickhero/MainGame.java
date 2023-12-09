@@ -372,4 +372,11 @@ public class MainGame extends Application {
     public void setMyGame(Game myGame) {
         this.myGame = myGame;
     }
+
+    public int getCherry() {
+        return cherryScore;
+    }
+    public void setCherry(int cherry) {
+        this.cherryScore = cherry;
+    }
 }
