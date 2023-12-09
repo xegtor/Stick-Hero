@@ -43,7 +43,7 @@ public class Game extends Application implements Serializable {
         mainWindow.show();
     }
 
-    public void launch() {
+    public void runMainGame() {
         mainWindow.close();
         mainGame.setMyGame(this);
         mainGame.setPlayer(this.player);
