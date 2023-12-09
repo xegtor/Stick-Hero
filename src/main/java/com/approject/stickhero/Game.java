@@ -4,6 +4,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
@@ -72,6 +75,11 @@ public class Game extends Application implements Serializable {
         mainGame.resetScore();
     }
     public static void main(String[] args) {
+        Result result = JUnitCore.runClasses(StickHeroTester.class);
+        for (Failure failure : result.getFailures()) {
+            System.out.println(failure.toString());
+        }
+        System.out.println(result.wasSuccessful());
         launch(args);
     }
 }
