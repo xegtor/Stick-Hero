@@ -38,8 +38,15 @@ Stick Hero is fun and intuitive game designed to show how JavaFX can be used to 
 
 ## Design Patterns
 
-- **Flyweight :** The `Player` class implements the Flyweight design pattern. It maintains a `Vector` of `Player`'s which stores all the scores and names of the `Player`'s in it. When the `getPlayerScore` function ensures there are only unique objects with unique names in the `Vector`. It takes as input a name and returns a `Player` object with that name which was either in the Vector already or if not present creates a `Player` with that name and adds it to the vector and then returns it.
-- **Strategy :** We use the `movable` interface to implement two classes `isMoving` and `isStationary` which help us identify is the player is moving or not.
+- **Flyweight** : The `Player` class implements the Flyweight design pattern. It maintains a `Vector` of `Player`'s which stores all the scores and names of the `Player`'s in it. When the `getPlayerScore` function ensures there are only unique objects with unique names in the `Vector`. It takes as input a name and returns a `Player` object with that name which was either in the Vector already or if not present creates a `Player` with that name and adds it to the vector and then returns it.
+- **Strategy** : We use the `movable` interface to implement two classes `isMoving` and `isStationary` which help us identify is the player is moving or not.
+
+## Creative Twist
+
+- **Background Music** : There is randomly selected music from a wide variety of songs, playing in the background while you play to add to the ambiance.
+- **Wither** : There is another type of consumable in your path which you must avoid as eating it causes you to lose cherries.
+- **Map Selection** : The player can pick through a wide variety of distinct and unique maps to enhance the gameplay.
+- **Special Sound Effects** : Special events like dying, reviving, consuming cherries or wither produce special sound effects to add to the audiovisual experience of the player.
 
 ## Getting Started
 
