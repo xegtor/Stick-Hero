@@ -21,4 +21,7 @@ public class Player {
     public void switchPosition(){};
     public void collectCherry(){};
     public void reviveWithCherries(){};
+    public String getName(){
+        return this.name;
+    }
 }

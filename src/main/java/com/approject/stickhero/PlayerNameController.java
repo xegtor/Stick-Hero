@@ -43,7 +43,7 @@ public class PlayerNameController {
 
     private void displayPlayerStatistics(String playerName) {
         int highScore = 0;
-        String username = "Unknown";
+        String username = myGame.getPlayerName();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Player Statistics");

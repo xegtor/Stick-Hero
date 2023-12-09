@@ -5,11 +5,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.Vector;
 
 public class Game extends Application {
     private Player player = null;
-    private final Vector <MyPlatform> platforms = new Vector<>();
+    private Stage mainWindow = new Stage();
+    private MainGame mainGame = new MainGame();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -20,16 +20,28 @@ public class Game extends Application {
         splashController.setGame(this);
 
         Scene scene = new Scene(root);
-        stage.setTitle("Stick Hero");
-        stage.setScene(scene);
-        stage.show();
+        mainWindow.setTitle("Stick Hero");
+        mainWindow.setScene(scene);
+        mainWindow.show();
+    }
+
+    public void launch() {
+        mainWindow.close();
+        mainGame.start(this.mainWindow);
+    }
+
+    public void setMap(String map){
+        mainGame.setMap(map);
+    }
+    public void setPlayerName(String name) {
+        this.player = new Player(name);
+    }
+
+    public String getPlayerName() {
+        return this.player.getName();
     }
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    public void setPlayerName(String name){
-        this.player = new Player(name);
     }
 }

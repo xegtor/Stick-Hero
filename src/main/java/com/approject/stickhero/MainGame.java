@@ -11,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
@@ -44,6 +45,7 @@ public class MainGame extends Application {
     private Boolean cherrySpawn = false;
     private Boolean pause = false;
     private Boolean sceneTransition = false;
+    private String map = "mountain.jpg";
     private ImageView player;
     private ImageView cherry;
     private Boolean cherryCollected = false;
@@ -65,7 +67,7 @@ public class MainGame extends Application {
     private Pane createContent() {
         Pane anchorPane = new AnchorPane();
 
-        ImageView background = new ImageView(new Image(getClass().getResourceAsStream("mountain.jpg")));
+        ImageView background = new ImageView(new Image(getClass().getResourceAsStream(map)));
         background.setX((double) - 392/2);
         background.setY((double) - 650/2);
         anchorPane.getChildren().add(background);
@@ -151,6 +153,9 @@ public class MainGame extends Application {
         rectangle.setStrokeType(StrokeType.INSIDE);
 
         return rectangle;
+    }
+    public void setMap(String newMap) {
+        map = newMap;
     }
 
     private void handleMousePressed(MouseEvent event) {
@@ -294,10 +299,12 @@ public class MainGame extends Application {
         }
     }
     public void gameOver() throws IOException {
+        MediaPlayer mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(getClass().getResource("youDied.mp3").toString()));
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("deathScreen.fxml")), 392, 650);
 
         stage.setScene(scene);
         stage.show();
+        mediaPlayer.play();
     }
     public void gameContinue(){
         sceneTransition = true;
@@ -321,6 +328,7 @@ public class MainGame extends Application {
         playerTransition.play();
 
         moveTransition.setOnFinished(event -> {
+            if (!isAlive){return;}
             root = createContent();
             Scene scene = new Scene(root, 392, 650);
             stage.setScene(scene);
@@ -329,9 +337,5 @@ public class MainGame extends Application {
             root.setFocusTraversable(true);
             root.requestFocus();
         });
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

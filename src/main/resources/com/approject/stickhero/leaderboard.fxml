@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="392.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.approject.stickhero.Leaderboard">
+   <children>
+      <ImageView fitHeight="706.0" fitWidth="392.0">
+         <image>
+            <Image url="@abyss.jpg" />
+         </image>
+      </ImageView>
+      <ImageView blendMode="COLOR_BURN" fitHeight="200.0" fitWidth="200.0" layoutX="96.0" layoutY="14.0">
+         <image>
+            <Image url="@leaderboard.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="first" layoutX="107.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1. PlaceHolder1">
+         <font>
+            <Font name="Times New Roman" size="26.0" />
+         </font>
+      </Text>
+      <Text fx:id="second" layoutX="107.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. PlaceHolder2">
+         <font>
+            <Font name="Times New Roman" size="26.0" />
+         </font>
+      </Text>
+      <Text fx:id="third" fill="WHITE" layoutX="107.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3. PlaceHolder3">
+         <font>
+            <Font name="Times New Roman" size="26.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#696969" height="62.0" layoutX="91.0" layoutY="439.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Text fx:id="third1" layoutX="158.0" layoutY="478.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home">
+         <font>
+            <Font name="Times New Roman Bold" size="26.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

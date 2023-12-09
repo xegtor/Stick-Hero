@@ -1,4 +1,3 @@
-// SplashController.java
 package com.approject.stickhero;
 
 import javafx.fxml.FXML;
@@ -31,16 +30,17 @@ public class SplashController {
         playerNameInputDialog.showAndWait();
 
         String playerName = playerNameInputController.getPlayerName();
+        myGame.setPlayerName(playerName);
 
-        FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
-        Parent helloViewRoot = gameLoader.load();
-        Game gameController = gameLoader.getController();
-        gameController.setPlayerName(playerName);
+        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("switchMaps.fxml"));
+        Parent switchMap = loader2.load();
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(helloViewRoot));
-        stage.setTitle("Hello View");
-        stage.show();
+        SwitchMaps switchMapController = loader2.getController();
+        switchMapController.setGame(myGame);
+
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.setScene(new Scene(switchMap));
+        currentStage.show();
     }
 
     public void setGame(Game game){
