@@ -1,9 +1,5 @@
 # Stick Hero Game
 **Note: UML Diagrams can be found in the `Stick-Hero` folder in both PNG and UML format. Maven has not been configured yet as it is subject to change.**
-
-## Introduction
-This is a 
-
 ## Classes
 
 ### 1. `SplashController`
